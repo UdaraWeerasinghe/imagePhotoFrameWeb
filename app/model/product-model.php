@@ -17,4 +17,41 @@ class Product{
         $results = $con->query($sql)or die($con->error);
         return $results;
     }
+    public function  getAllSubCategory(){
+        
+        $con = $GLOBALS['con'];
+        $sql = "SELECT * FROM sub_category WHERE sub_cat_status='1'";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
+    
+    public function  getAllColor(){
+        
+        $con = $GLOBALS['con'];
+        $sql = "SELECT DISTINCT product_color FROM product WHERE product_status='1'";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
+    
+    public function  getAllMaterial(){
+        
+        $con = $GLOBALS['con'];
+        $sql = "SELECT * FROM category";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
+    public function  getProduct($pId){
+        
+        $con = $GLOBALS['con'];
+        $sql = "SELECT * FROM product WHERE product_id='$pId'";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
+    public function  getSizeByType($subCatId){
+        
+        $con=$GLOBALS['con'];
+        $sql="SELECT * FROM sub_category_size sc, size s WHERE sc.size_id=s.size_id and sc.sub_cat_id='$subCatId'";
+        $results = $con->query($sql) or die($con->error);
+        return $results;
+    }
 }
