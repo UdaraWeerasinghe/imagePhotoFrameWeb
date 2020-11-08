@@ -54,4 +54,11 @@ class Product{
         $results = $con->query($sql) or die($con->error);
         return $results;
     }
+    public function  getPriceBySize($sizeId,$pId){
+        
+        $con=$GLOBALS['con'];
+        $sql="SELECT product_price FROM product_price WHERE size_id='$sizeId' AND product_id='$pId'";
+        $results = $con->query($sql) or die($con->error);
+        return $results;
+    }
 }

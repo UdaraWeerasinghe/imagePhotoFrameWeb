@@ -1,0 +1,29 @@
+.notification {
+    color: black;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+}
+.badge {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}
+.shopping-cart-contend{
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    padding: 20px 25px 10px 10px;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+.remove-btn:hover{
+    color: red;
+}

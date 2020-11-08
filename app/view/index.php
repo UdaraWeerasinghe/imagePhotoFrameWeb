@@ -13,9 +13,9 @@
                 </div>
                 <div class="col-md-8" style="text-align: center">
                     <div style="padding-top: 25px;">
-                        <a style="margin-right: 50px; color: orangered;">Home</a>
-                        <a style="margin-right: 50px;">About</a>
-                        <a style="margin-right: 50px;">Contact</a>
+                        <a href="home.php" style="margin-right: 50px; color: orangered;">Home</a>
+                        <a href="#" style="margin-right: 50px;">About</a>
+                        <a href="#" style="margin-right: 50px;">Contact</a>
                     </div>
                 </div>
                 <div class="col-md-2"></div>
