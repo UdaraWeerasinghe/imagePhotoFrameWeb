@@ -20,9 +20,6 @@
         <meta charset="UTF-8">
         <title></title>
         <link type="text/css" rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
-        <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../../DataTables-1.10.22/css/jquery.dataTables.min.css"/>
-        <script type="text/javascript" src="../../DataTables-1.10.22/js/jquery.dataTables.min.js"></script>
         <link type="text/css" rel="stylesheet" href="../../fontawesome-pro-5.13.0-web/css/all.css">
         <link type="text/css" rel="stylesheet" href="../../css/style.css">
     </head>
@@ -30,7 +27,7 @@
         <div class="container-fluid" style="position: fixed; z-index: 1; background-color: white">
             <div class="row">
                 <div class="col-md-2">
-                    <img src="../../images/logo.jpg" height="35px;" style="margin: 10px;">
+                    <img src="../../images/logo.png" height="35px;" style="margin: 10px;">
                 </div>
                 <div class="col-md-8" style="text-align: center">
                     <div style="padding-top: 10px;">
@@ -56,16 +53,18 @@
                             }
                                 ?>
                             </span>
-                            <span class="shopping-cart-contend" style="width: 400px;text-align: left; background-color: white; color: black; box-shadow: 2px 2px 10px 2px gray; border-radius: 5px;">
+                            <span class="shopping-cart-contend" style="width: 300px;text-align: left; background-color: white; color: black; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;">
+                                <span id="cart-list">
                                 
-                                <h4 class="mb-4" style="text-align: left">Shopping cart</h4>
                                 <?php
                                 if(isset($_COOKIE["shopping_cart"]))
                        {
                                     $no=1;
                             $cookie_data = stripslashes($_COOKIE['shopping_cart']);
                             $cart_data = json_decode($cookie_data, true);
-                            foreach($cart_data as $keys => $values)
+                            
+                            if(count($cart_data)!==0){
+                                foreach($cart_data as $keys => $values)
                         {
                                 $pId=$values["pId"];
                                 $sizeId=$values["pSizeId"];
@@ -73,25 +72,66 @@
                                 $sRow=$priceResult->fetch_assoc();
                                 $itemResult=$productObj->getProduct($pId);
                                 $iRow=$itemResult->fetch_assoc();
+                                $sResult=$productObj->getSize($sizeId);
+                                $sizeRow=$sResult->fetch_assoc();
                                 
                                 ?>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <img width="80px" height="80px" src="../../../ImagePhotoFrame/images/design_image/<?php echo $iRow["product_img_1"];?>">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <?php echo $iRow["product_name"];?>
-                                    </div>
-                                    <div class="col-md-1" >
-                                      <a href="#" data-toggle="tooltip" data-placement="right" title="Remove"><span class="far fa-trash-alt remove-btn"></span></a>
+                                    <h4 class="mb-4" style="text-align: left">Shopping cart</h4>
+                                <div style="padding: 0px;">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img width="60px" height="60px" src="../../../ImagePhotoFrame/images/design_image/<?php echo $iRow["product_img_1"];?>">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <p style="font-size: 14px; color: #588b8b"><?php echo $iRow["product_name"]."(".$sizeRow['width']."&Prime;"."&#215;".$sizeRow['height']."&Prime;".")"; ?><p>
+                                                    <p style="font-size: 14px; color: #588b8b; margin-top: -14px;">Qty: <?php echo $values["pQuantity"];?></p>
+                                                </div>
+                                                <div class="col-md-2">
+                                                  <a  onclick="load_data(<?php echo $values["psId"]; ?>)"
+                                                        data-toggle="tooltip" data-placement="right" title="Remove">
+                                                    <span class="far fa-trash-alt remove-btn">
+                                                    </span>
+                                                </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                    <div style="text-align: center; margin-right: -12px;"><a class="btn form-control"style="background-color: orange;">View Cart</a></div>
                                     <?php
-                                
                             }
+                            }
+                        else {
+                                ?>
+                                    <div class="row">
+                                        <div class="col-12 mb-2" style="text-align: center">The Shopping Cart is Empty!</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12" style="text-align: center">
+                                            <a class="btn " style="color: orangered">Please Sign in</a>
+                                        </div>
+                                    </div>
+                                    <?php
+                        }
+                            
+                            
                        }
+            else {
+                ?>
+                                    <div class="row">
+                                        <div class="col-12 mb-2" style="text-align: center">The Shopping Cart is Empty!</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12" style="text-align: center">
+                                            <a class="btn " style="color: orangered">Please Sign in</a>
+                                        </div>
+                                    </div>
+                                    <?php
+            }
                             ?>
-                      
+                                </span>
                             </span>
                     </div>    
                 </div>
@@ -156,7 +196,7 @@
                                 </div>
                         </div>
                         <div>
-                            <input type="button" id="add_to_cart" name="add_to_cart" class="form-control btn btn-primary" value="ADD TO CART">
+                            <input type="button" id="add_to_cart" name="add_to_cart" class="form-control btn btn-warning" value="ADD TO CART">
                         </div>
                     </form>
                 </div>

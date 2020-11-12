@@ -21,7 +21,7 @@
         <div class="container-fluid" style="position: fixed; z-index: 1; background-color: white">
             <div class="row">
                 <div class="col-md-2">
-                    <img src="../../images/logo.jpg" height="35px;" style="margin: 10px;">
+                    <img src="../../images/logo.png" height="35px;" style="margin: 10px;">
                 </div>
                 <div class="col-md-8" style="text-align: center">
                     <div style="padding-top: 10px;">
