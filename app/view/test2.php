@@ -5,7 +5,7 @@
     $scatResult=$productObj->getAllSubCategory();
     $colorResult=$productObj->getAllColor();
     $materialResult=$productObj->getAllMaterial();
-    $pId= base64_decode($_REQUEST['pId']);
+    $pId=$_REQUEST['pId'];
     $viewProductResult=$productObj->getProduct($pId);
     $productPrice=$productObj->getStatingPrice($pId);
     $pRow=$viewProductResult->fetch_assoc();
@@ -53,7 +53,9 @@
                             }
                                 ?>
                             </span>
-                            <span class="shopping-cart-contend">
+                                
+                                
+                                <span class="shopping-cart-contend">
                                     <div class="cart-list" id="cart-list">
                                         <div class="cart-list-item">
                                             <h4 class="mb-4" style="text-align: left">Shopping cart</h4>
@@ -85,7 +87,7 @@
                                         <div class="col-md-9">
                                                 <div class="row">
                                                     <div class="col-md-10">
-                                                        <a href="view-product.php?pId=<?php echo base64_encode($iRow["product_id"]); ?>">
+                                                        <a href="#">
                                                             <p style="font-size: 14px; color: #588b8b"><?php echo $iRow["product_name"]."(".$sizeRow['width']."&Prime;"."&#215;".$sizeRow['height']."&Prime;".")"; ?><p>
                                                             <p style="font-size: 14px; color: #588b8b; margin-top: -14px;">Qty: <?php echo $values["pQuantity"];?></p>
                                                         </a>
@@ -121,7 +123,7 @@
                        ?>
                                         </div>
                                         <div style="padding: 10px;">
-                                            <a href="shopping-cart.php" class="btn btn-warning form-control">View Cart</a>
+                                            <a href="#" class="btn btn-warning form-control">View Cart</a>
                                         </div>
                                     </div>
                                     
@@ -145,7 +147,6 @@
                     <form method="post">
                         <div>
                             <h1><?php echo $pRow['product_name']; ?></h1>
-                            <input id="pName" name="pName" type="hidden" value="<?php echo $pRow['product_name']; ?>">
                             <input id="pId" name="pId" type="hidden" value="<?php echo $pRow['product_id']; ?>">
                         </div>
                         <div class="mb-4" style="padding: 20px; border: #cccccc solid 1px; border-radius: 5px; background-color: white">
@@ -187,6 +188,7 @@
                                     </div>
                                     <div class="col-md-6" style="text-align: end">
                                         <label style="font-weight: bold">TOTAL COST : Rs. <?php echo number_format($spRow['startingPrice'],2)?></label>
+                                       
                                     </div>
                                 </div>
                         </div>
@@ -203,5 +205,4 @@
     <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="../../js/product-validation.js"></script>
-    <script type="text/javascript" src="../../js/sweetalert.js"></script>
 </html>

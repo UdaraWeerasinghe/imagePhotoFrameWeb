@@ -70,9 +70,20 @@
         var url="../controller/product-controller.php?status=removeFromCart";
         $.post(url, {psId:psId}, function(data){
             $("#item_count").html(data).show();
-            $("#cart-tbl").load(" #cart-table-data");
-            $('.shopping-cart-contend').load(' #cart-list');
+            $("#cart-tbl").load(" #cart-table-data");//remove from cart table
+            $('.shopping-cart-contend').load(' #cart-list');//remove from hover cart
+            $('#order_summery').load(' #total');//remove from hover cart
         });
     }
 //remove from shopping cart
 
+$("#add_to_cart").click(function () {
+    var pName = $("#pName").val();
+    var qty = $("#pQuantity").val();
+swal({
+  title: "Added to shopping cart"+"("+" "+"Item"+" "+qty+" "+")",
+  text: pName,
+  icon: "success"
+//  button: "Aww yiss!"
+});
+});

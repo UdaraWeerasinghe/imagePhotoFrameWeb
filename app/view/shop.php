@@ -160,10 +160,11 @@
                     <?php 
                     $count=0;
                         While($pRow=$productResult->fetch_assoc()){
+                            $pId= base64_encode($pRow["product_id"]);
                             ?>
                         <div class="col-md-3">
                             <div class="card" style="border-radius: 10px; margin: 10px 2px;padding: 10px;" >
-                                <a href="view-product.php?pId=<?php echo $pRow['product_id']; ?>" style="text-decoration: none">
+                                <a href="view-product.php?pId=<?php echo $pId; ?>" style="text-decoration: none">
                                     <div><img width="100%" src="../../../ImagePhotoFrame/images/design_image/<?php echo $pRow['product_img_1']; ?>"></div>
                                     <center>
                                         <h6 style="color: black; text-decoration: none;"><?php echo $pRow['product_name']; ?></h6>

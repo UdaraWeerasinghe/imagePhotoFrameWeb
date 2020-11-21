@@ -15,17 +15,40 @@
     color: white;
 }
 .shopping-cart-contend{
+    width: 300px;
+    position: absolute;
+    top: 42px;
+    right: 10px;
+    text-align: left;
+    display: none;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+.cart-list{
+    
+}
+.cart-list-item{
+    padding: 10px 20px 0px 20px;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+.cart-list-item::-webkit-scrollbar{
+    display: none;
+}
+/*.shopping-cart-contend{
     display: none;
     position: absolute;
     top: 40px;
     max-height: 400px;
     right: 10px;
-    padding: 20px 25px 10px 10px;
+    padding: 20px 20px 10px 20px;
     overflow-y: scroll; 
 }
 .shopping-cart-contend::-webkit-scrollbar{
     display: none;
-}
+}*/
 body::-webkit-scrollbar {
     display: none;
 }
