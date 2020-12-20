@@ -37,9 +37,23 @@
                         <a href="contact.php" style="margin-right: 50px; color: black;">Contact</a>
                     </div>
                 </div>
-                <div class="col-md-2" style="text-align: right">
+                <div class="col-md-2" style="text-align: right;">
                     <div style="padding-top: 10px;">
-                        <span class="fad fa-user-alt fa-2x"></span>
+                        <span id="user_icon">
+                            <a href="#" class="fad fa-user-alt fa-2x notification"></a>
+                        <span>
+                            <?php
+                            session_start();
+                            if(isset($_SESSION['customer'])){
+                                ?>
+                            <label><?php echo $_SESSION['customer']['customer_fName'] ?></label>
+                            <?php
+                            }
+                            ?>
+                            
+                        </span>
+                        <span>
+                        <span>&nbsp;</span>
                                 <a href="shopping-cart.php" class="fad fa-shopping-cart fa-2x notification" id="shopping-cart"></a>
                             <span class="badge" id="item_count">
                                   <?php
@@ -53,6 +67,23 @@
                             }
                                 ?>
                             </span>
+                                
+                            <span class="user-contend">
+                                <ul style="list-style: none; margin: 0px;padding: 0px;">
+                                    <li>
+                                        <i class="fas fa-user"></i>
+                                        &nbsp;Profile
+                                    </li>
+                                    <hr>
+                                    <li class="btn btn-warning form-control">
+                                        <i class="far fa-sign-out-alt"></i>&nbsp;
+                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black">Logout</a>
+                                    </li>
+                                </ul>
+                                
+                            </span>
+                                
+                                
                             <span class="shopping-cart-contend">
                                     <div class="cart-list" id="cart-list">
                                         <div class="cart-list-item">
@@ -164,6 +195,21 @@
                                 <div class="row">
                                     <div class="col-md-4"><label>Select width and height :</label></div>
                                     <div class="col-md-3">
+                                        <?php
+                                        if(isset($_GET['sId'])){
+                                            ?>
+                                        <select class="form-control" id="frameSize" name="frameSize">
+                                              <?php
+                                               $sResult=$productObj->getSize(base64_decode($_REQUEST['sId']));
+                                               $psRow=$sResult->fetch_assoc();
+                                                      ?>
+                                            <option value="<?php echo $psRow['size_id']; ?>"><?php echo $psRow['width']."&Prime;"."&#215;".$psRow['height']."&Prime;";?></option>
+                                               
+                                           </select>
+                                        <?php
+                                        }
+                                        else{
+                                            ?>
                                         <select class="form-control" id="frameSize" name="frameSize">
                                               <?php
                                                 while ($psRow=$sizeResult->fetch_assoc()){
@@ -171,6 +217,10 @@
                                             <option value="<?php echo $psRow['size_id']; ?>"><?php echo $psRow['width']."&Prime;"."&#215;".$psRow['height']."&Prime;";?></option>
                                                 <?php } ?>
                                            </select>
+                                        <?php
+                                        }
+                                        ?>
+                                        
                                     </div>
                                     <div class="col-md-1"></div>
                                     <div class="col-md-2">
@@ -202,6 +252,7 @@
     </body>
     <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/sweetalert2.js"></script>
     <script type="text/javascript" src="../../js/product-validation.js"></script>
     <script type="text/javascript" src="../../js/sweetalert.js"></script>
 </html>

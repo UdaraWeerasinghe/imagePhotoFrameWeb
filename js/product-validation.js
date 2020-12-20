@@ -37,10 +37,11 @@
             });
         });
     //price by qty
+    
+    
      $('#shopping-cart').mouseover(function() {
         $('.shopping-cart-contend').load(' #cart-list');
-});
-     
+    });
      $("#shopping-cart").mouseover(function(){
          $(".shopping-cart-contend").css("display", "block");
      });
@@ -55,16 +56,33 @@
      });
      
      
+     $("#user_icon").mouseover(function(){
+         $(".user-contend").css("display", "block");
+     });
+     $("#user_icon").mouseout(function(){
+         $(".user-contend").css("display", "none");
+     });
+     $(".user-contend").mouseover(function(){
+         $(".user-contend").css("display", "block");
+     });
+     $(".user-contend").mouseout(function(){
+         $(".user-contend").css("display", "none");
+     });
+     
+     
         
-    function isNumberKey(event){
+    
+});
+
+
+
+function isNumberKey(event){
           let charCode = (event.which)?event.which:event.keyCode;
           if(charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
               return false;
         return true;
           
       };
-});
-
 //remove from shopping cart
          function load_data(psId) {
         var url="../controller/product-controller.php?status=removeFromCart";
@@ -77,13 +95,26 @@
     }
 //remove from shopping cart
 
+
+
 $("#add_to_cart").click(function () {
     var pName = $("#pName").val();
     var qty = $("#pQuantity").val();
-swal({
-  title: "Added to shopping cart"+"("+" "+"Item"+" "+qty+" "+")",
-  text: pName,
-  icon: "success"
-//  button: "Aww yiss!"
+Swal.fire({
+  position: 'top',
+  icon: 'success',
+  title: "Succesfuly added "+pName+" "+"</br>("+" "+"Quantity"+" "+qty+" "+")",
+  showConfirmButton: false,
+  timer: 1500
+});
+});
+      
+
+$("#proceedTocheckout").click(function () {  
+Swal.fire({
+  icon: 'warning',
+  title: 'Shopping cart is empty',
+  showConfirmButton: false,
+  footer: '<a href="shop.php" class="btn btn-primary">Add items to cart</a>'
 });
 });

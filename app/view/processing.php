@@ -1,17 +1,31 @@
 <?php 
+session_start();
+$customerId=$_SESSION["customer"]["customer_id"];
     include '../model/product-model.php';
     $productObj=new Product(); 
+    
+    include '../model/order-model.php';
+    $orderObj=new Order();
+    $orderResult=$orderObj->getProcessingOrdeByCustomer($customerId);
+    
 ?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <link type="text/css" rel="stylesheet" href="../../bootstrap/css/bootstrap.css"> 
+        <link type="text/css" rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="../../fontawesome-pro-5.13.0-web/css/all.css">
         <link type="text/css" rel="stylesheet" href="../../css/style.css">
+        <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
+        <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../DataTables-1.10.22/css/dataTables.bootstrap4.css"/>
+        <script type="text/javascript" src="../../DataTables-1.10.22/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../../DataTables-1.10.22/js/dataTables.bootstrap4.js"></script>
     </head>
-    <body style="margin: 0px; padding: 0px;">
+    <body style="margin: 0px; padding: 0px;background-color: #f5f6f8">
         <div class="container-fluid" style="position: fixed; z-index: 1; background-color: white">
             <div class="row">
                 <div class="col-md-2">
@@ -19,7 +33,7 @@
                 </div>
                 <div class="col-md-8" style="text-align: center">
                     <div style="padding-top: 10px;">
-                        <a style="margin-right: 50px; color: orangered;" href="home.php">Home</a>
+                        <a style="margin-right: 50px; color: black;" href="home.php">Home</a>
                         <a style="margin-right: 50px; color: black;" href="shop.php">Shop</a>
                         <a style="margin-right: 50px; color: black;" href="about.php">About</a>
                         <a style="margin-right: 50px; color: black;" href="contact.php">Contact</a>
@@ -31,7 +45,7 @@
                             <a href="#" class="fad fa-user-alt fa-2x notification"></a>
                         <span>
                             <?php
-                            session_start();
+                            
                             if(isset($_SESSION['customer'])){
                                 ?>
                             <label><?php echo $_SESSION['customer']['customer_fName'] ?></label>
@@ -60,11 +74,7 @@
                                 <ul style="list-style: none; margin: 0px;padding: 0px;">
                                     <li>
                                         <i class="fas fa-user"></i>
-                                        &nbsp;<a href="#">Profile</a>
-                                    </li><hr>
-                                    <li>
-                                        <i class="fas fa-bags-shopping"></i>
-                                        &nbsp;<a href="order.php">My orders</a>
+                                        &nbsp;Profile
                                     </li>
                                     <hr>
                                     <li class="btn btn-warning form-control">
@@ -148,29 +158,80 @@
                                         </div>
                                     </div>
                                     
-                                        
-                                    
                                 </span>
-                    </div>  
+                    </div>    
                 </div>
             </div>
+            
+            
         </div>
-        <div style="height: 351.1Px; width: 100%; position: absolute; top: 65px; background-image: url(../../images/top-banner3.jpg); background-size: cover">
-            <div class="row container">
-                <div class="col-6" style="text-align: center; padding: 20px;">
-                    
-                        <p style="font-size: 50px; font-weight: bold; color: red">Add some glam to your gallery.</p>
-                        <p style="font-size: 20px;">Shop new frame designs, including options with gold, silver, and browns finishers.</p>
-                        <a class="btn btn-success" style="color: white;" href="shop.php">Shop Now</a>
-                </div>
-                <div class="col-6">
-                </div>
+        <div class="container"style="padding-top: 90px">
+            <div class="card" style="background-color: white; padding: 10px;">
+                <h3>Order Details</h3>
+               
+                
+                <ul class="nav nav-tabs" style="margin-bottom: 10px;">
+                  <li class="nav-item">
+                      <a class="nav-link" href="order.php">All</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="pending.php">Pending</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">Processing</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="completed.php">Completed</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Shipped</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Received</a>
+                  </li>
+                </ul>
+                
+                <table class="table table-hover" id="order_tbl">
+                    <thead class="table-info">
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Date & Time</th>
+                            <th>Number Of Items</th>
+                            <th>Sub Total</th>
+                            <th>Due Payment</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                <?php 
+                    while ($oderRow=$orderResult->fetch_assoc()){
+                        ?>
+                        <tr>
+                            <td><?php echo $oderRow["order_id"];?></td>
+                            <td><?php echo $oderRow["order_timestamp"];?></td>
+                            <td><?php echo $oderRow["order_id"];?></td>
+                            <td><?php echo $oderRow["order_sub_total"];?></td>
+                            <td><?php echo $oderRow["order_id"];?></td>
+                            <td><?php echo $oderRow["order_status"];?></td>
+                        </tr>
+                <?php
+                    }
+                ?>
+                    </tbody>
+                </table>  
             </div>
+           
         </div>
-
     </body>
-    <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
+    
     <script type="text/javascript" src="../../js/popper-1.16.js"></script>
+    <script type="text/javascript" src="../../js/sweetalert2.js"></script>
     <script type="text/javascript" src="../../js/product-validation.js"></script>
+ 
+    <script>
+        
+        $(function(){
+    $("#order_tbl").dataTable();
+  });
+    </script>
 </html>

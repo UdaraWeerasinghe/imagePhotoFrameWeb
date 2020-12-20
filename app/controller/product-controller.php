@@ -70,6 +70,7 @@ switch ($status){
 	setcookie('shopping_cart', $item_data, time() + (86400 * 30),'/');
        
         } 
+        
         break;
         
         case "removeFromCart":
@@ -89,5 +90,12 @@ switch ($status){
                         } 
             }
             break;
+            case "changePrice":
+                $price=$_POST['unitPrice'];
+                $qty=$_POST['qty'];
+                echo number_format($price * $qty,2);
+                $total=$price*$qty;
+                                    
+                break;
         
 }
