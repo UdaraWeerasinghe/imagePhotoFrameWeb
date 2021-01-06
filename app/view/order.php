@@ -227,12 +227,12 @@ $customerId=$_SESSION["customer"]["customer_id"];
                             </td>
                             <td>
                                 <?php 
-                                if($oderRow["order_payment_status"]==1){
+                                if($oderRow["order_payment_status"]==0){
                                     ?>
-                                <span style="color: red"><?php echo number_format($oderRow["order_sub_total"],2);?></span>
+                                <span><?php echo number_format($oderRow["order_sub_total"],2);?></span>
                                 <?php
                                 } 
-                                elseif ($oderRow["order_payment_status"]==2) {
+                                elseif ($oderRow["order_payment_status"]==1) {
                                 ?>
                                 <span style="color: orangered"><?php echo number_format($oderRow["order_sub_total"]/2,2);?></span>
                                 <?php

@@ -76,6 +76,7 @@ case "proceedToCheckout":
             $subTotal=$_POST["subTotal"];
             $order_id=$_POST["orderId"];
             $cartObj->addPayment($order_id, $paymentOption, $subTotal);
+            $cartObj->addPaymentToOrder($order_id);
             header("Location:../view/order.php?alert=success");
             break;
 }

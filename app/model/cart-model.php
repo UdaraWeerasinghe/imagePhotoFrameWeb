@@ -37,4 +37,11 @@ class Cart{
         $result=$con->query($sql) or die($con->error);
         return $result;
     }
+    
+    public function  addPaymentToOrder($order_id){
+        
+        $con=$GLOBALS['con'];
+        $sql="UPDATE order_detail SET order_payment_status=2 WHERE order_id='$order_id'";
+        $con->query($sql) or die($con->error); 
+    }
 }
