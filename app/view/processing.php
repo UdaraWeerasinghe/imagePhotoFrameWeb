@@ -200,6 +200,7 @@ $customerId=$_SESSION["customer"]["customer_id"];
                             <th>Sub Total</th>
                             <th>Due Payment</th>
                             <th>Status</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -208,11 +209,76 @@ $customerId=$_SESSION["customer"]["customer_id"];
                         ?>
                         <tr>
                             <td><?php echo $oderRow["order_id"];?></td>
-                            <td><?php echo $oderRow["order_timestamp"];?></td>
-                            <td><?php echo $oderRow["order_id"];?></td>
-                            <td><?php echo $oderRow["order_sub_total"];?></td>
-                            <td><?php echo $oderRow["order_id"];?></td>
-                            <td><?php echo $oderRow["order_status"];?></td>
+                            <td>
+                                <?php
+                                $timestamp = strtotime($oderRow["order_timestamp"]);
+                               echo $date = date('d-m-Y', $timestamp);
+//                               $time = date('h:i:sa', $timestamp);
+                                
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                            $orderQty=$orderObj->getOrderQty($oderRow["order_id"]);
+                            echo $orderQty;
+                            ?>
+                            </td>
+                            <td>
+                                <?php echo "Rs.".number_format($oderRow["order_sub_total"],2);?>
+                            </td>
+                            <td>
+                                <?php 
+                                if($oderRow["order_payment_status"]==0){
+                                    ?>
+                                <span style="color: red"><?php echo "Rs.".number_format($oderRow["order_sub_total"],2);?></span>
+                                <?php
+                                } 
+                                elseif ($oderRow["order_payment_status"]==1) {
+                                ?>
+                                <span style="color: green"><?php echo "Rs.".number_format(0,2);?></span>
+                                
+                                <?php
+                            }
+                                else {
+                                   ?>
+                                <span style="color: orangered"><?php echo "Rs.".number_format($oderRow["order_sub_total"]/2,2);?></span>
+                                <?php 
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php if($oderRow["order_status"]==1){
+                                    ?>
+                                <span class="label label-warning">Pending</span>
+                                <?php
+                                }
+                                elseif ($oderRow["order_status"]==2) {
+                                ?>
+                                <span class="label label-warning">Processing</span>
+                                <?php
+                            }
+                                ?>
+                            </td>
+                            <td>
+                                <?php if($oderRow["order_payment_status"]==1){
+                                    ?>
+                                <button class="btn btn-sm btn-info">View</button>
+                                <?php
+                                }
+                                elseif ($oderRow["order_payment_status"]==2) {
+                                ?>
+                                <button class="btn btn-sm btn-info">View</button>
+                                <button class="btn btn-sm btn-warning">pay</button>
+                                <?php
+                            }
+                                else {
+                                    ?>
+                                <button class="btn btn-sm btn-info">View</button>
+                                <button class="btn btn-sm btn-warning">pay</button>
+                                <?php
+                                }
+                                ?>
+                            </td>
                         </tr>
                 <?php
                     }

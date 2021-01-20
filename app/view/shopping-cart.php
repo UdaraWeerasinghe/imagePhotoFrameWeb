@@ -111,7 +111,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-md-2">
-                                                      <a  onclick="load_data(<?php echo $values["psId"]; ?>)">
+                                                      <a  onclick="load_data('<?php echo $values["psId"]; ?>')">
                                                         <span class="far fa-trash-alt remove-btn">
                                                         </span>
                                                     </a>

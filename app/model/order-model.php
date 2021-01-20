@@ -23,35 +23,35 @@ class Order{
     public function  getPendingOrdeByCustomer($customerId){
         
         $con=$GLOBALS['con'];
-        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='2'";
+        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='1'";
         $result=$con->query($sql) or die($con->error);
         return $result;
     }
     public function  getProcessingOrdeByCustomer($customerId){
         
         $con=$GLOBALS['con'];
-        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='3'";
+        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='2'";
         $result=$con->query($sql) or die($con->error);
         return $result;
     }
     public function  getCompletedOrdeByCustomer($customerId){
         
         $con=$GLOBALS['con'];
-        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='4'";
+        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='3'";
         $result=$con->query($sql) or die($con->error);
         return $result;
     }
     public function  getShippedOrdeByCustomer($customerId){
         
         $con=$GLOBALS['con'];
-        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='5'";
+        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='4'";
         $result=$con->query($sql) or die($con->error);
         return $result;
     }
     public function  getReceivedOrdeByCustomer($customerId){
         
         $con=$GLOBALS['con'];
-        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='6'";
+        $sql="SELECT * FROM order_detail WHERE customer_id='$customerId' AND order_status='5'";
         $result=$con->query($sql) or die($con->error);
         return $result;
     }

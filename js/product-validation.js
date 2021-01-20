@@ -8,6 +8,16 @@
             var add_to_cart = $("#add_to_cart").val();
             $.post(url, {size_id:frameSize,pId:pId,pQuantity:pQuantity,add_to_cart:add_to_cart}, function (data){
                 $("#item_count").html(data).show();
+                
+            var pName = $("#pName").val();
+            var qty = $("#pQuantity").val();
+                Swal.fire({
+                  position: 'top',
+                  icon: 'success',
+                  title: "Succesfuly added "+pName+" "+"</br>("+" "+"Quantity"+" "+qty+" "+")",
+                  showConfirmButton: false,
+                  timer: 1500
+                });
             });
         });
   
@@ -95,20 +105,6 @@ function isNumberKey(event){
     }
 //remove from shopping cart
 
-
-
-$("#add_to_cart").click(function () {
-    var pName = $("#pName").val();
-    var qty = $("#pQuantity").val();
-Swal.fire({
-  position: 'top',
-  icon: 'success',
-  title: "Succesfuly added "+pName+" "+"</br>("+" "+"Quantity"+" "+qty+" "+")",
-  showConfirmButton: false,
-  timer: 1500
-});
-});
-      
 
 $("#proceedTocheckout").click(function () {  
 Swal.fire({

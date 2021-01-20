@@ -97,5 +97,111 @@ switch ($status){
                 $total=$price*$qty;
                                     
                 break;
+            
+                case "viewOrderModale":
+                    $orderId=$_POST["orderId"];
+                    $oResult=$productObj->getOrderById($orderId);
+                    $tRow=$oResult->fetch_assoc();
+                    $orderResult=$productObj->getOrderByOrderId($orderId);
+                    ?>
+                    <label style="font-weight: bold">Order Id :&nbsp;</label><?php echo $orderId ?> &nbsp;|&nbsp;
+                    <?php $timestamp = strtotime($tRow["order_timestamp"]); ?>
+                    <label style="font-weight: bold">Date :&nbsp;</label><?php echo date('d-m-Y', $timestamp); ?>&nbsp;|&nbsp;
+                    <label style="font-weight: bold">Time :&nbsp;</label><?php echo date('h:i:sa', $timestamp); ?>
+                    <?php
+                    if($tRow["order_payment_status"]=='1'){
+                        ?>
+                    <label style="font-weight: bold">Payment Status :&nbsp;</label> 
+                    <label style="background-color: #28a745; font-size: 14px; color: white;padding: 3px; border-radius: 5px;">Completed </label>  
+                     <?php
+                    }else if($tRow["order_payment_status"]=='2'){
+                        ?>
+                    <label style="font-weight: bold">Payment Status :&nbsp;</label> 
+                    <label style="background-color: #ffc107; font-size: 14px; padding: 3px; border-radius: 5px;">Not Completed </label>  
+                        <?php
+                    }else if($tRow["order_payment_status"]=='0'){
+                        ?>
+                    <label style="font-weight: bold">Payment Status :&nbsp;</label> 
+                    <label style="background-color: #dc3545; font-size: 14px; padding: 3px; border-radius: 5px;">Not Paid </label>  
+                        <?php
+                    }
+                    ?>
+                    <table class="table table-borderless table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no=0;
+                                $total=0;
+                    while ($oRow=$orderResult->fetch_assoc()){
+                        $sizeResult=$productObj->getSize($oRow["size_id"]);
+                        $sRow=$sizeResult->fetch_assoc();
+                            $no++;
+                            $total=$total+$oRow["unit_price"]*$oRow["quantity"];
+                                 
+                                ?>
+                                <tr>
+                                    <td><?php echo $no; ?></td>
+                                    <td><?php echo $oRow["product_name"]."(".$sRow['width']."&Prime;"."&#215;".$sRow['height']."&Prime;".")";?></td>
+                                    <td><?php echo $oRow["quantity"]; ?></td>
+                                    <td><?php echo "Rs.".number_format($oRow["unit_price"]*$oRow["quantity"],2)?></td>
+                                </tr>
+                    <?php } ?>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><hr style="margin: 0px;"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style="font-weight: bold;">Sub Total</td>
+                                    <td></td>
+                                    <td style="font-weight: bold;"><?php echo "Rs.".number_format($total,2); ?></td>
+                                </tr>
+                                <?php
+                    if($tRow["order_payment_status"]=='1'){
+                        
+                    }else if($tRow["order_payment_status"]=='2'){
+                        ?>
+                                <tr>
+                                    <td></td>
+                                    <td style="font-weight: bold">Outstanding Amount</td>
+                                    <td></td>
+                                    <td style="font-weight: bold"><?php echo "Rs.".number_format($total/2,2); ?></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><button class="btn btn-sm btn-warning">Pay Now</button></td>
+                                </tr>
+                                <?php
+                    }else if($tRow["order_payment_status"]=='0'){
+                        ?>
+                                <tr>
+                                    <td></td>
+                                    <td style="font-weight: bold">Outstanding Amount</td>
+                                    <td></td>
+                                    <td style="font-weight: bold"><?php echo "Rs.".number_format($total,2); ?></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><button class="btn btn-sm btn-warning">Pay Now</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                        <?php
+                    }
+                    break;
         
 }

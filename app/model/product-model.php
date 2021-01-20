@@ -68,4 +68,18 @@ class Product{
         $results = $con->query($sql) or die($con->error);
         return $results;
     }
+    public function  getOrderByOrderId($orderId){
+        
+        $con=$GLOBALS['con'];
+        $sql="SELECT * FROM order_detail o, order_product op, product p WHERE o.order_id = op.order_id AND op.product_id=p.product_id AND o.order_id='$orderId'";
+        $results = $con->query($sql) or die($con->error);
+        return $results;
+    }
+    public function  getOrderById($orderId){
+        
+        $con=$GLOBALS['con'];
+        $sql="SELECT * FROM order_detail WHERE order_id='$orderId'";
+        $results = $con->query($sql) or die($con->error);
+        return $results;
+    }
 }

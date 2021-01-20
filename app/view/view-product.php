@@ -122,7 +122,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-md-2">
-                                                      <a  onclick="load_data(<?php echo $values["psId"]; ?>)">
+                                                      <a  onclick="load_data('<?php echo $values["psId"]; ?>')">
                                                         <span class="far fa-trash-alt remove-btn">
                                                         </span>
                                                     </a>
@@ -254,5 +254,5 @@
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="../../js/sweetalert2.js"></script>
     <script type="text/javascript" src="../../js/product-validation.js"></script>
-    <script type="text/javascript" src="../../js/sweetalert.js"></script>
+  
 </html>
