@@ -172,13 +172,13 @@ $customerId=$_SESSION["customer"]["customer_id"];
                 
                 <ul class="nav nav-tabs" style="margin-bottom: 10px;">
                   <li class="nav-item">
-                    <a class="nav-link active" href="#">All</a>
+                      <a class="nav-link active" href="order.php">All</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="pending.php">Pending</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Processing</a>
+                      <a class="nav-link" href="processing.php">Processing</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#">Completed</a>
@@ -195,8 +195,7 @@ $customerId=$_SESSION["customer"]["customer_id"];
                     <thead class="table-info">
                         <tr>
                             <th>Order Id</th>
-                            <th>Date & Time</th>
-                            <th>Number Of Items</th>
+                            <th>Date</th>
                             <th>Sub Total</th>
                             <th>Due Payment</th>
                             <th>Status</th>
@@ -217,12 +216,7 @@ $customerId=$_SESSION["customer"]["customer_id"];
                                 
                                 ?>
                             </td>
-                            <td>
-                                <?php 
-                            $orderQty=$orderObj->getOrderQty($oderRow["order_id"]);
-                            echo $orderQty;
-                            ?>
-                            </td>
+                            
                             <td>
                                 <?php echo "Rs.".number_format($oderRow["order_sub_total"],2);?>
                             </td>
@@ -268,13 +262,13 @@ $customerId=$_SESSION["customer"]["customer_id"];
                                 elseif ($oderRow["order_payment_status"]==2) {
                                 ?>
                                 <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#view" onclick="viewOrder('<?php echo $oderRow["order_id"];?>')">View</button>
-                                <button class="btn btn-sm btn-warning">Pay Now</button>
+                                <a href='payment.php?orderId=<?php echo base64_encode($oderRow["order_id"])?>' type="button" class="btn btn-sm btn-warning">Pay Now</a>
                                 <?php
                             }
                                 else {
                                     ?>
                                 <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#view" onclick="viewOrder('<?php echo $oderRow["order_id"];?>')">View</button>
-                                <button class="btn btn-sm btn-warning">Pay Now</button>
+                                <a href='payment.php?orderId=<?php echo base64_encode($oderRow["order_id"])?>' type="button" class="btn btn-sm btn-warning">Pay Now</a>
                                 <?php
                                 }
                                 ?>
@@ -289,25 +283,21 @@ $customerId=$_SESSION["customer"]["customer_id"];
            
         </div>
          <!--view//////modal/////////////////-->
-  <div class="modal" id="view">
-    <div class="modal-dialog ">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Order Details</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="modal fade" id="view">
+      <div class="modal-dialog ">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Order Details</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body" id="viewOrderBody">
+          </div>
         </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body" id="viewOrderBody">
-            
-        </div>
-        
-        
       </div>
     </div>
-  </div>
         <!--view//////modal/////////////////-->
     </body>
     <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
@@ -321,15 +311,16 @@ $customerId=$_SESSION["customer"]["customer_id"];
     <script>
         
         $(function(){
-    $("#order_tbl").dataTable();
+    $("#order_tbl").dataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
   });
   
         function viewOrder(orderId){
             var url="../controller/product-controller.php?status=viewOrderModale&orderId="+orderId;
             $.post(url, {orderId:orderId}, function(data) {
                 $("#viewOrderBody").html(data).show();
-    
-});
+            });
         }
         $(document).ready(function() {
             
@@ -338,8 +329,8 @@ $customerId=$_SESSION["customer"]["customer_id"];
               Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Successful!',
-            text: 'Your order has been confirmed',
+            title: 'Successfull!',
+            text: 'Payment Successfull',
             showConfirmButton: false,
             timer: 1500
           });   

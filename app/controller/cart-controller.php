@@ -25,7 +25,7 @@ case "proceedToCheckout":
                   header("Location:../view/login.php");
               }
            else {
-          //        header("Location:../view/checkout.php");
+          
                   if(isset($_COOKIE["shopping_cart"]))
                          {
                       $cId=$_SESSION['customer']['customer_id'];
@@ -60,7 +60,7 @@ case "proceedToCheckout":
 
                         setcookie('shopping_cart', '', time() - (86400 * 30),'/');
                             $orderId= base64_encode($newid);
-                           header("Location:../view/place-order.php?orderId=$orderId");
+                           header("Location:../view/payment.php?orderId=$orderId");
             }
                }
            }
@@ -106,8 +106,16 @@ case "proceedToCheckout":
                     $num++;
                     $newid = "P".str_pad($num,5,"0",STR_PAD_LEFT);
                     
-                    $cartObj->addPayment($newid,$order_id, $paymentOption, $subTotal);
-                    $cartObj->addPaymentToOrder($order_id,$paymentOption);
+                    if($paymentOption=='3'){
+                       $option=2;
+                       $updateOPtion=1;
+                        $cartObj->addPayment($newid,$order_id, $option, $subTotal);
+                        $cartObj->addPaymentToOrder($order_id,$updateOPtion);
+                    } else {
+                        $cartObj->addPayment($newid,$order_id, $paymentOption, $subTotal);
+                        $cartObj->addPaymentToOrder($order_id,$paymentOption);
+                    }
+                    
             
                 }
             header("Location:../view/order.php?alert=success");

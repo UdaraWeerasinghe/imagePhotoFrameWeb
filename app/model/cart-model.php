@@ -33,7 +33,6 @@ class Cart{
         
         $con=$GLOBALS['con'];
         $sql="SELECT * FROM order_detail WHERE order_id='$orderId';";
-//        $con->query($sql) or die($con->error);
         $result=$con->query($sql) or die($con->error);
         return $result;
     }

@@ -156,7 +156,8 @@
         $cookie_data = stripslashes($_COOKIE['shopping_cart']);
         $cart_data = json_decode($cookie_data, true);
         ?>
-        <form method="post" action="../controller/cart-controller.php?status=proceedToCheckout">
+        <!--<form method="post" action="../controller/cart-controller.php?status=proceedToCheckout">-->
+        <form method="post" action="../view/checkout.php">
         <div class="container" style="padding-top: 90px">
             <div class="row">
                 <div class="col-md-9">
@@ -232,7 +233,7 @@
                                     ?>
                                     </td>
                                     <th>
-                                        <a  onclick="load_data(<?php echo $values["psId"]; ?>)">
+                                        <a  onclick="load_data('<?php echo $values["psId"]; ?>')">
                                             <span class="far fa-trash-alt remove-btn">
                                             </span>
                                         </a>

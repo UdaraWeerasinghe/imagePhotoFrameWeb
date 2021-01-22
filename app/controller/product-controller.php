@@ -98,7 +98,7 @@ switch ($status){
                                     
                 break;
             
-                case "viewOrderModale":
+            case "viewOrderModale":
                     $orderId=$_POST["orderId"];
                     $oResult=$productObj->getOrderById($orderId);
                     $tRow=$oResult->fetch_assoc();
@@ -122,11 +122,11 @@ switch ($status){
                     }else if($tRow["order_payment_status"]=='0'){
                         ?>
                     <label style="font-weight: bold">Payment Status :&nbsp;</label> 
-                    <label style="background-color: #dc3545; font-size: 14px; padding: 3px; border-radius: 5px;">Not Paid </label>  
+                    <label style="background-color: #dc3545; font-size: 14px; color: white; padding: 3px; border-radius: 5px;">Not Paid </label>  
                         <?php
                     }
                     ?>
-                    <table class="table table-borderless table-responsive">
+                    <table class="table table-borderless table-sm table-responsive">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -167,21 +167,33 @@ switch ($status){
                                 </tr>
                                 <?php
                     if($tRow["order_payment_status"]=='1'){
-                        
+                        ?>
+                                </tbody>
+                        </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    </div>
+                            <?php
                     }else if($tRow["order_payment_status"]=='2'){
                         ?>
                                 <tr>
                                     <td></td>
                                     <td style="font-weight: bold">Outstanding Amount</td>
                                     <td></td>
-                                    <td style="font-weight: bold"><?php echo "Rs.".number_format($total/2,2); ?></td>
+                                    <td style="font-weight: bold; color: orangered;"><?php echo "Rs.".number_format($total/2,2); ?></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><button class="btn btn-sm btn-warning">Pay Now</button></td>
+                                    <td></td>
                                 </tr>
+                                </tbody>
+                        </table>
+                    <div class="modal-footer">
+                        <a href='../view/payment.php?orderId=<?php echo base64_encode($orderId)?>' type="button" class="btn btn-sm btn-warning">Pay Now</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    </div>
                                 <?php
                     }else if($tRow["order_payment_status"]=='0'){
                         ?>
@@ -195,10 +207,14 @@ switch ($status){
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td><button class="btn btn-sm btn-warning">Pay Now</button></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
+                    <div class="modal-footer">
+                        <a href='../view/payment.php?orderId=<?php echo base64_encode($orderId)?>' type="button" class="btn btn-sm btn-warning">Pay Now</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                    </div>
                     
                         <?php
                     }

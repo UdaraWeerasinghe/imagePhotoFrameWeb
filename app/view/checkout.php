@@ -244,10 +244,14 @@
                         <div class="row" style="font-weight: bold">
                             <div class="col-5">Subtotal</div>
                             <div class="col-7" style="text-align: end">
-                                <label>Rs.<?php  echo $subtotal=number_format($total-$discount,2);?></label>
+                                <?php   $subtotal=$total-$discount;?>
+                                <label>Rs.<?php  echo number_format($subtotal,2);?></label>
                             </div>
                         </div>
-                        <a href="../view/place-order.php" class="btn btn-warning">Place Order</a>
+                        <form method="post" action="../controller/cart-controller.php?status=proceedToCheckout">
+                            <input type="hidden" name="sub_total" value="<?php echo $subtotal; ?>">
+                            <input type="submit" class="btn btn-warning form-control" value="Place Order">
+                        </form>
                     </div>
                 </div>
             </div>

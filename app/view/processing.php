@@ -8,6 +8,11 @@ $customerId=$_SESSION["customer"]["customer_id"];
     $orderObj=new Order();
     $orderResult=$orderObj->getProcessingOrdeByCustomer($customerId);
     
+    if(isset($_GET["alert"])){
+        ?>
+        <input type="hidden" id="alert" value="sucess">
+    <?php
+    }
 ?>
 
 
@@ -19,11 +24,8 @@ $customerId=$_SESSION["customer"]["customer_id"];
         <link type="text/css" rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="../../fontawesome-pro-5.13.0-web/css/all.css">
         <link type="text/css" rel="stylesheet" href="../../css/style.css">
-        <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
-        <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
         <link rel="stylesheet" type="text/css" href="../../DataTables-1.10.22/css/dataTables.bootstrap4.css"/>
-        <script type="text/javascript" src="../../DataTables-1.10.22/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="../../DataTables-1.10.22/js/dataTables.bootstrap4.js"></script>
+        
     </head>
     <body style="margin: 0px; padding: 0px;background-color: #f5f6f8">
         <div class="container-fluid" style="position: fixed; z-index: 1; background-color: white">
@@ -84,8 +86,6 @@ $customerId=$_SESSION["customer"]["customer_id"];
                                 </ul>
                                 
                             </span>
-                                
-                                
                             <span class="shopping-cart-contend">
                                     <div class="cart-list" id="cart-list">
                                         <div class="cart-list-item">
@@ -168,7 +168,7 @@ $customerId=$_SESSION["customer"]["customer_id"];
         <div class="container"style="padding-top: 90px">
             <div class="card" style="background-color: white; padding: 10px;">
                 <h3>Order Details</h3>
-               
+                <!--<hr>-->
                 
                 <ul class="nav nav-tabs" style="margin-bottom: 10px;">
                   <li class="nav-item">
@@ -178,10 +178,10 @@ $customerId=$_SESSION["customer"]["customer_id"];
                       <a class="nav-link" href="pending.php">Pending</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="#">Processing</a>
+                      <a class="nav-link active" href="processing.php">Processing</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="completed.php">Completed</a>
+                      <a class="nav-link" href="#">Completed</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="#">Shipped</a>
@@ -195,8 +195,7 @@ $customerId=$_SESSION["customer"]["customer_id"];
                     <thead class="table-info">
                         <tr>
                             <th>Order Id</th>
-                            <th>Date & Time</th>
-                            <th>Number Of Items</th>
+                            <th>Date</th>
                             <th>Sub Total</th>
                             <th>Due Payment</th>
                             <th>Status</th>
@@ -217,12 +216,7 @@ $customerId=$_SESSION["customer"]["customer_id"];
                                 
                                 ?>
                             </td>
-                            <td>
-                                <?php 
-                            $orderQty=$orderObj->getOrderQty($oderRow["order_id"]);
-                            echo $orderQty;
-                            ?>
-                            </td>
+                            
                             <td>
                                 <?php echo "Rs.".number_format($oderRow["order_sub_total"],2);?>
                             </td>
@@ -262,19 +256,19 @@ $customerId=$_SESSION["customer"]["customer_id"];
                             <td>
                                 <?php if($oderRow["order_payment_status"]==1){
                                     ?>
-                                <button class="btn btn-sm btn-info">View</button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#view" onclick="viewOrder('<?php echo $oderRow["order_id"];?>')">View</button>
                                 <?php
                                 }
                                 elseif ($oderRow["order_payment_status"]==2) {
                                 ?>
-                                <button class="btn btn-sm btn-info">View</button>
-                                <button class="btn btn-sm btn-warning">pay</button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#view" onclick="viewOrder('<?php echo $oderRow["order_id"];?>')">View</button>
+                                <a href='payment.php?orderId=<?php echo base64_encode($oderRow["order_id"])?>' type="button" class="btn btn-sm btn-warning">Pay Now</a>
                                 <?php
                             }
                                 else {
                                     ?>
-                                <button class="btn btn-sm btn-info">View</button>
-                                <button class="btn btn-sm btn-warning">pay</button>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#view" onclick="viewOrder('<?php echo $oderRow["order_id"];?>')">View</button>
+                                <a href='payment.php?orderId=<?php echo base64_encode($oderRow["order_id"])?>' type="button" class="btn btn-sm btn-warning">Pay Now</a>
                                 <?php
                                 }
                                 ?>
@@ -288,16 +282,66 @@ $customerId=$_SESSION["customer"]["customer_id"];
             </div>
            
         </div>
+         <!--view//////modal/////////////////-->
+  <div class="modal fade" id="view">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Order Details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" id="viewOrderBody">
+            
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+        <!--view//////modal/////////////////-->
     </body>
-    
+    <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../DataTables-1.10.22/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="../../DataTables-1.10.22/js/dataTables.bootstrap4.js"></script>
     <script type="text/javascript" src="../../js/popper-1.16.js"></script>
     <script type="text/javascript" src="../../js/sweetalert2.js"></script>
     <script type="text/javascript" src="../../js/product-validation.js"></script>
  
     <script>
         
-        $(function(){
-    $("#order_tbl").dataTable();
+      $(function(){
+    $("#order_tbl").dataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
   });
+  
+        function viewOrder(orderId){
+            var url="../controller/product-controller.php?status=viewOrderModale&orderId="+orderId;
+            $.post(url, {orderId:orderId}, function(data) {
+                $("#viewOrderBody").html(data).show();
+    
+});
+        }
+        $(document).ready(function() {
+            
+            var pName = $("#alert").val();
+            if(pName=="sucess"){
+              Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Successfull!',
+            text: 'Payment Successfull',
+            showConfirmButton: false,
+            timer: 1500
+          });   
+            }
+            
+        });
+    
     </script>
 </html>
