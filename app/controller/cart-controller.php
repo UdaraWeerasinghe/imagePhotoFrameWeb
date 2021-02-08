@@ -54,13 +54,10 @@ case "proceedToCheckout":
                                             $psRow=$pSizeResult->fetch_assoc();     
 
                             $cartObj->addOrderProduct($newid, $pId, $sizeId, $qty, $uPrice);                
-
-
                         }
-
                         setcookie('shopping_cart', '', time() - (86400 * 30),'/');
-                            $orderId= base64_encode($newid);
-                           header("Location:../view/payment.php?orderId=$orderId");
+                        $orderId= base64_encode($newid);
+                        header("Location:../view/payment.php?orderId=$orderId");
             }
                }
            }

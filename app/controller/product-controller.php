@@ -53,8 +53,8 @@ switch ($status){
      }
  }
  else {
-     $psId=$_POST["pId"].$_POST["size_id"]; //get the unic id for increse qty with out add add  as new productto cart
-	
+     $psId=$_POST["pId"].$_POST["size_id"]; //get the unic id for increse qty with 
+                                            //out add add  as new productto cart
 		$item_array = array(
                     'psId' => $psId,
                     'pId' => $_POST["pId"],
@@ -65,7 +65,6 @@ switch ($status){
                 
                 echo count($cart_data);//display ntification
  }
-      
 	$item_data = json_encode($cart_data);
 	setcookie('shopping_cart', $item_data, time() + (86400 * 30),'/');
        
@@ -86,7 +85,7 @@ switch ($status){
                                 $item_data = json_encode($cart_data);
 				setcookie("shopping_cart", $item_data, time() + (86400 * 30),'/');
                                 
-                                echo count($cart_data);
+                                echo count($cart_data); //update the count
                         } 
             }
             break;

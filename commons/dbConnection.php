@@ -6,7 +6,7 @@ class dbConnection{
     private $hostname="localhost";
     private $dbusename="root";
     private $dbpassword="";
-    private $db="bit_project";
+    private $db="ifpdb";
     
     function __construct() {
         $this->conn= new mysqli(
