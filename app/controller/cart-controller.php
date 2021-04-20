@@ -19,6 +19,7 @@ case "proceedToCheckout":
                     $num=substr($lid, 2);
                     $num++;
                     $newid = "OR".str_pad($num,5,"0",STR_PAD_LEFT);
+                }
                     
                                 session_start();
               if(!isset($_SESSION['customer'])){
@@ -62,7 +63,7 @@ case "proceedToCheckout":
                }
            }
 
-                }
+                
   
            
     break;
@@ -102,19 +103,32 @@ case "proceedToCheckout":
                     $num=substr($lid, 1);
                     $num++;
                     $newid = "P".str_pad($num,5,"0",STR_PAD_LEFT);
-                    
-                    if($paymentOption=='3'){
-                       $option=2;
-                       $updateOPtion=1;
-                        $cartObj->addPayment($newid,$order_id, $option, $subTotal);
-                        $cartObj->addPaymentToOrder($order_id,$updateOPtion);
-                    } else {
-                        $cartObj->addPayment($newid,$order_id, $paymentOption, $subTotal);
-                        $cartObj->addPaymentToOrder($order_id,$paymentOption);
-                    }
-                    
-            
                 }
+                $invoiceIdResult=$cartObj->getInsertIdInvoice();
+                $norInInvoice=$invoiceIdResult->num_rows;
+                if($norInInvoice==0){
+                    $newInvoiceId = "IN00001";
+                }
+                else{
+                    $inIdRow=$invoiceIdResult->fetch_assoc();
+                    $lidInvoice=$inIdRow["invoice_id"];
+                    $numIn=substr($lidInvoice, 2);
+                    $numIn++;
+                    $newInvoiceId = "IN".str_pad($numIn,5,"0",STR_PAD_LEFT);
+                }
+                    
+                if($paymentOption=='3'){//when custome has paid 50% and second time comes to pay
+                   $option=2;
+                   $updateOPtion=1;
+                    $cartObj->addPayment($newid,$order_id, $option, $subTotal);
+                    $cartObj->addPaymentToOrder($order_id,$updateOPtion);
+                    $cartObj->addInvoice($newInvoiceId, $newid, $order_id);
+                } else {//new payment
+                    $cartObj->addPayment($newid,$order_id, $paymentOption, $subTotal);
+                    $cartObj->addPaymentToOrder($order_id,$paymentOption);
+                    $cartObj->addInvoice($newInvoiceId, $newid, $order_id);
+                }
+                
             header("Location:../view/order.php?alert=success");
             break;
             

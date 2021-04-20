@@ -263,7 +263,7 @@
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6" style="text-align: center">
                                     <h3>Your shopping cart is empty.</h3>
-                                    <a  class="btn btn-warning" style="margin-top: 10px;"> Sign in to view your cart</a>
+                                    <a href="../view/shop.php" class="btn btn-warning" style="margin-top: 10px;"> Add Product To Cart</a>
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>
@@ -286,7 +286,7 @@
                             <div class="col-md-3"></div>
                             <div class="col-md-6" style="text-align: center">
                                 <h3>Your shopping cart is empty.</h3>
-                                <a class="btn btn-warning" style="margin-top: 10px;"> Sign in to view your cart</a>
+                                <a href="../view/shop.php" class="btn btn-warning" style="margin-top: 10px;"> Add Product To Cart</a>
                             </div>
                             <div class="col-md-3"></div>
                         </div>
@@ -302,7 +302,7 @@
                     <div id="total"  class="card" style="padding: 15px;">
                         <h4>Order summary</h4><hr>
                         <?php
-                        if(isset($_COOKIE["shopping_cart"]))
+                        if(isset($total)) // check cookie data is available or not using total
                {
                         ?>
                         <div class="row">
@@ -337,7 +337,7 @@
                             </div>
                             <input type="hidden" name="sub_total" value="00.00">
                         </div>
-                        <input id="proceedTocheckout" class="btn btn-warning" value="Proceed to Checkout">
+                        <a id="proceedTocheckout" class="btn btn-warning">Proceed to Checkout</a>
                         <?php    
                         }
                         ?>

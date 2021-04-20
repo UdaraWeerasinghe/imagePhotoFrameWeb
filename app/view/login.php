@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2">
-                    <img src="../../images/logo.jpg" height="60px;" style="margin: 10px;">
+                    <img src="../../images/logo.png" height="60px;" style="margin: 10px;">
                 </div>
                 <div class="col-md-8" style="text-align: center">
                     <div style="padding-top: 25px;">
@@ -33,6 +33,7 @@
                             <input type="text" name="uname" id="uname" placeholder="Enter your Email.." class="form-control"><br>
                             <label>User Name</label>
                             <input type="password" name="upass" id="upass" placeholder="Enter your Password.." class="form-control"><br>
+                            <a style="font-size: 12px;" href="#">Forgot Password</a>
                             <div style="text-align: end">
                                 <input type="submit" class="btn btn-primary" value="Login">
                             </div>

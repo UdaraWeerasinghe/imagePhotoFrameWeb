@@ -67,8 +67,8 @@
                                     <input type="hidden" id="subTotal" name="subTotal" value="<?php echo $subTotal; ?>">
                                 </span>
                         </div>
-                        <?php
-                            }else if($oRow["order_payment_status"]=='2'){
+                        <?php //if the custumer has paid 50%
+                            }else if($oRow["order_payment_status"]=='2'){ 
                                 ?>
                         <div class="row">
                             <input type="hidden" name="orderId" value="<?php echo $orderId; ?>">

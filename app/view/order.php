@@ -337,6 +337,12 @@ $customerId=$_SESSION["customer"]["customer_id"];
             }
             
         });
-    
+        
+        //sweetAlert trime
+        var url = window.location.href;
+        var splitUrl = url.split('?')[0];
+        var newSplitUrl = splitUrl.split('localhost')[1];
+        window.history.pushState({}, document.title, "" + newSplitUrl);
+        //sweetAlert trime
     </script>
 </html>

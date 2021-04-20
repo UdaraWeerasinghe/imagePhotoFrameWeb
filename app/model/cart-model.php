@@ -44,11 +44,25 @@ class Cart{
         $result=$con->query($sql) or die($con->error);
         return $result;
     }
+     public function  getInsertIdInvoice(){
+        
+        $con=$GLOBALS['con'];
+        $sql="SELECT invoice_id FROM invoice ORDER BY invoice_id DESC LIMIT 1;";
+        $result=$con->query($sql) or die($con->error);
+        return $result;
+    }
     
     public function  addPayment($paymentId,$order_id,$paymentOption,$subTotal){
         
         $con=$GLOBALS['con'];
         $sql="INSERT INTO payment(payment_id,order_id,payment_type,payment_amount) VALUES('$paymentId','$order_id','$paymentOption','$subTotal')";
+        $result=$con->query($sql) or die($con->error);
+        return $result;
+    }
+    public function  addInvoice($InvoiceId,$paymentId,$order_id){
+        
+        $con=$GLOBALS['con'];
+        $sql="INSERT INTO invoice(invoice_id,payment_id,order_id) VALUES('$InvoiceId','$paymentId','$order_id')";
         $result=$con->query($sql) or die($con->error);
         return $result;
     }
