@@ -105,18 +105,6 @@
                     <div id="addressTooltip" style="position: absolute;width: 92%; left: 16px" class="invalid-tooltip"></div>
                 </div>
             </div>
-              <div class="row mb-4">
-                <div class="col-sm-6">
-                    <label>Password :</label>
-                    <input type="password" name="pass" id="pass" class="form-control">
-                    <div id="passTooltip" style="position: absolute;width: 92%; left: 16px" class="invalid-tooltip"></div>
-                </div>
-                <div class="col-sm-6">
-                    <label>Confirm Password :</label>
-                    <input type="password" name="passCnf" id="passCnf" class="form-control">
-                    <div id="passCnfTooltip" style="position: absolute;width: 92%; left: 16px" class="invalid-tooltip"></div>
-                </div>
-            </div>
               <div class="row">
                   <div class="col-12" style="text-align: right">
                       <button type="submit" class="btn btn-success">Create Account</button>
@@ -130,7 +118,5 @@
     </body>
     <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript" src="../../js/customer-validation.js"></script>
     <script type="text/javascript" src="../../js/sweetalert2.js"></script>
-
 </html>

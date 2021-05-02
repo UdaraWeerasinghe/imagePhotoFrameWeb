@@ -15,7 +15,7 @@
         <div class="container-fluid" style="position: fixed; z-index: 1; background-color: white">
             <div class="row">
                 <div class="col-md-2">
-                    <img src="../../images/logo.png" height="35px;" style="margin: 10px;">
+                    <img src="../../images/logo.png" height="35px;" style="margin: 10px">
                 </div>
                 <div class="col-md-8" style="text-align: center">
                     <div style="padding-top: 10px;">
@@ -25,7 +25,7 @@
                         <a style="margin-right: 50px; color: black;" href="contact.php">Contact</a>
                     </div>
                 </div>
-                <div class="col-md-2" style="text-align: right">
+                <div class="col-md-2" style="text-align: right;">
                     <div style="padding-top: 10px;">
                         <span id="user_icon">
                             <a href="#" class="fad fa-user-alt fa-2x notification"></a>
@@ -133,7 +133,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12" style="text-align: center">
-                                            <a class="btn " style="color: orangered">Please Sign in</a>
+                                            <a class="btn " href="shop.php" style="color: orangered">Add Product to Cart</a>
                                         </div>
                                     </div>
                                     <?php

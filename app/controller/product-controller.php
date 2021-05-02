@@ -218,5 +218,49 @@ switch ($status){
                         <?php
                     }
                     break;
+                    
+                case "loadProductOnSearch":
+                    $seaechTxt="%".$_POST["seaechText"]."%";
+                    $productResult=$productObj->searchProduct($seaechTxt);
+                    ?>
+                   <div class="row">
+                    <?php 
+                    $count=0;
+                        While($pRow=$productResult->fetch_assoc()){
+                            $pId= base64_encode($pRow["product_id"]);
+                            ?>
+                        <div class="col-md-3">
+                            <div class="card" style="border-radius: 10px; margin: 10px 2px;padding: 10px;" >
+                                <a href="view-product.php?pId=<?php echo $pId; ?>" style="text-decoration: none">
+                                    <div><img width="100%" src="../../../ImagePhotoFrame/images/design_image/<?php echo $pRow['product_img_1']; ?>"></div>
+                                    <center>
+                                        <h6 style="color: black; text-decoration: none;"><?php echo $pRow['product_name']; ?></h6>
+                                        <?php $p_id=$pRow['product_id'];
+                                        $productPrice=$productObj->getStatingPrice($p_id);
+                                        $srow=$productPrice->fetch_assoc();
+                                        ?>
+                                        <p style="color: grey">Starting at Rs.<?php echo number_format($srow['startingPrice'],2); ?></p>
+                                        <h6 style="color: black">Color : <?php echo $pRow['product_color']; ?> </h6>
+                                    </center>
+                                    
+                                </a>
+                            </div>
+                        </div>
+                        <?php 
+                        $count++;
+                            if($count%4==0){
+                                ?>
+                               </div>  
+                    <div class="row">
+                    <?php
+                            }
+                        ?>
+                       
+                                <?php
+                        }
+                    ?>
+                </div>
+                        <?php
+                    break;
         
 }

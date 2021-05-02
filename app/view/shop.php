@@ -148,17 +148,14 @@
                                         <div style="padding: 10px;">
                                             <a href="shopping-cart.php" class="btn btn-warning form-control">View Cart</a>
                                         </div>
-                                    </div>
-                                    
-                                        
-                                    
+                                    </div>  
                                 </span>
                     </div>  
                 </div>
             </div><hr style="margin-top: 0px; margin-bottom: 0px;">
         </div>
         <div class="row container-fluid" style="position: absolute; top: 65px;">
-            <div class="col-md-3">
+            <div class="col-md-3" style="padding-left: 27px;">
                 <div>
                     <h5>CATEGORIES</h5><hr>
                     <div style="padding-left: 50px; padding-bottom: 10px;">
@@ -203,27 +200,18 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <div class="col-md-2">
-                       
-                    </div>
-                    <div class="col-md-3">
-                       
-                    </div>
                     <div class="col-md-1"></div>
-                     <div class="col-md-4 mb-4">
+                    <div class="col-md-12 mb-4">
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fad fa-search"></i></span>
                             </div>
-                            <input type="search" class="form-control">
+                            <input type="search" id="search-bar" placeholder="Search here..." class="form-control">
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-primary">Search</button>
                     </div>
                    
                 </div>
-                <div>
+                <div id="product">
                     <div class="row">
                     <?php 
                     $count=0;

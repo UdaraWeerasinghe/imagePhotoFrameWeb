@@ -16,7 +16,13 @@ switch ($status){
        $_SESSION['customer']=$customer_details;
        
        if($result->num_rows==1){
-           header("Location:../view/home.php");
+           $status=$_SESSION["customer"]["status"];
+//           if($status==1){
+              header("Location:../view/home.php"); 
+//           }else{
+//               header("Location:../view/enterPassword.php");
+//           }
+           
        }
         break;
         

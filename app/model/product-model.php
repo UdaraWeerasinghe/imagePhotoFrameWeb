@@ -4,9 +4,14 @@ $dbConnObj= new dbConnection();
 
 class Product{
     public function  getAllProduct(){
-        
         $con = $GLOBALS['con'];
         $sql = "SELECT * FROM product";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
+    public function  searchProduct($txt){
+        $con = $GLOBALS['con'];
+        $sql = "SELECT * FROM product WHERE product_name LIKE '$txt'";
         $results = $con->query($sql)or die($con->error);
         return $results;
     }
