@@ -67,11 +67,21 @@
                                     <li>
                                         <i class="fas fa-user"></i>
                                         &nbsp;Profile
+                                    </li><hr>
+                                     <li>
+                                        <i class="fas fa-bags-shopping"></i>
+                                        &nbsp;<a href="order.php">My orders</a>
                                     </li>
                                     <hr>
                                     <li class="btn btn-warning form-control">
                                         <i class="far fa-sign-out-alt"></i>&nbsp;
-                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black">Logout</a>
+                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black"> <?php 
+                                            if(isset($_SESSION["customer"])){
+                                                echo 'Logout';
+                                            }else{
+                                                echo 'Login';
+                                            }
+                                            ?></a>
                                     </li>
                                 </ul>
                                 
@@ -116,7 +126,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-md-2">
-                                                      <a  onclick="load_data(<?php echo $values["psId"]; ?>)">
+                                                      <a  onclick="load_data('<?php echo $values["psId"]; ?>')">
                                                         <span class="far fa-trash-alt remove-btn">
                                                         </span>
                                                     </a>
@@ -135,7 +145,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12" style="text-align: center">
-                                            <a class="btn " style="color: orangered">Please Sign in</a>
+                                            <a  href="login.php" class="btn " style="color: orangered">Please Sign in</a>
                                         </div>
                                     </div>
                                     <?php
@@ -154,51 +164,10 @@
                 </div>
             </div><hr style="margin-top: 0px; margin-bottom: 0px;">
         </div>
-        <div class="row container-fluid" style="position: absolute; top: 65px;">
-            <div class="col-md-3" style="padding-left: 27px;">
-                <div>
-                    <h5>CATEGORIES</h5><hr>
-                    <div style="padding-left: 50px; padding-bottom: 10px;">
-                        <?php 
-                        while ($scRow=$scatResult->fetch_assoc()){
-                        ?>
-                        <label><input type="checkbox">&nbsp;<?php echo $scRow['sub_cat_name']; ?></label><br>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-                
-                <div>
-                    <h5>MATERIAL</h5><hr>
-                    <div style="padding-left: 50px; padding-bottom: 10px;">
-                       <?php
-                                               while ($mRow=$materialResult->fetch_assoc()){
-                                                   ?>
-                        <label><input type="checkbox">&nbsp;<?php echo $mRow['cat_name']; ?></label><br>
-                        <?php
-                                               }
-                       ?>
-                        
-                    </div>
-                    
-                </div>
-                
-                <div>
-                    <h5>COLOR</h5><hr>
-                    <div style="padding-left: 50px; padding-bottom: 10px;">
-                       <?php
-                                               while ($cRow=$colorResult->fetch_assoc()){
-                                                   ?>
-                        <label><input type="checkbox">&nbsp;<?php echo $cRow['product_color']; ?></label><br>
-                        <?php
-                                               }
-                       ?>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-9">
+        <div class="container">
+        <div class="row" style="padding-top: 70px;">
+
+            <div class="col-12">
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-12 mb-4">
@@ -251,10 +220,20 @@
                 </div>
             </div>
         </div>
+              
+        </div> 
+        </div>    
+               <?php
+                    include './footer.php';
+                    ?> 
+        
+        
+               
 
     </body>
     <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="../../js/popper-1.16.js"></script>
     <script type="text/javascript" src="../../js/product-validation.js"></script>
+    
 </html>

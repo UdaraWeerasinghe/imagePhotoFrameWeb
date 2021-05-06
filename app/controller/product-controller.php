@@ -2,6 +2,7 @@
 include '../model/product-model.php';
 $productObj=new Product();
 
+
 $status=$_REQUEST["status"];
 switch ($status){
     
@@ -262,5 +263,19 @@ switch ($status){
                 </div>
                         <?php
                     break;
+                    
+                    case "giveFeedBack":
+                        $orderId= base64_decode($_REQUEST["orderId"]);
+                        include '../model/order-model.php';
+                        $orderObj=new Order();
+                        $productResult=$orderObj->getproductBy($orderId);
+                        
+                        $rate=$_POST["rate"];
+                        $feedBack=$_POST["feedBack"];
+                        while($pRow=$productResult->fetch_assoc()){
+                            $orderObj->addfeedBack($pRow["product_id"], $pRow["cusId"], $rate, $feedBack);
+                        }
+                        header("Location:../view/home.php");
+                        break;
         
 }

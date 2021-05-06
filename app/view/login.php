@@ -14,9 +14,9 @@
                 </div>
                 <div class="col-md-8" style="text-align: center">
                     <div style="padding-top: 25px;">
-                        <a style="margin-right: 50px; color: orangered;">Home</a>
-                        <a style="margin-right: 50px;">About</a>
-                        <a style="margin-right: 50px;">Contact</a>
+                        <a href="home.php" style="margin-right: 50px; color: orangered;">Home</a>
+                        <a href="about.php" style="margin-right: 50px;">About</a>
+                        <a href="contact.php" style="margin-right: 50px;">Contact</a>
                     </div>
                 </div>
                 <div class="col-md-2"></div>
@@ -26,12 +26,18 @@
             <div class="row container">
                 <div class="col-6" style=" padding: 10px 30px;">
                     <div style="padding: 20px; background-color: white; border-radius: 15px;" class="card">
-                        <form method="post" action="../controller/login-controller.php?status=login">
+                        <form id="login">
                             <h4>Login</h4>
+                            <div>
                             <label>User Name</label>
-                            <input type="text" name="uname" id="uname" placeholder="Enter your Email.." class="form-control"><br>
-                            <label>User Name</label>
-                            <input type="password" name="upass" id="upass" placeholder="Enter your Password.." class="form-control"><br>
+                            <input type="text" name="uname" id="uname" placeholder="Enter your Email.." class="form-control">
+                            <div class="invalid-tooltip" id="unameTooltip" style="position: inherit;"></div><br>
+                            </div>
+                            <div>
+                            <label>password</label>
+                            <input type="password" name="upass" id="upass" placeholder="Enter your Password.." class="form-control">
+                            <div class="invalid-tooltip" id="upassTooltip" style="position: initial;"></div><br>
+                            </div>
                             <a style="font-size: 12px;" href="#">Forgot Password</a>
                             <div style="text-align: end">
                                 <a style="margin-right: 20px" href="create-account.php" data-toggle="modal" data-target="#createAccount">Create an Account</a>
@@ -132,5 +138,6 @@
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="../../js/customer-validation.js"></script>
     <script type="text/javascript" src="../../js/sweetalert2.js"></script>
+    <script type="text/javascript" src="../../js/login-validation.js"></script>
 
 </html>

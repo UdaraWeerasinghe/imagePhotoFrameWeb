@@ -9,9 +9,33 @@ class Product{
         $results = $con->query($sql)or die($con->error);
         return $results;
     }
+     public function  getAllProductPopular(){
+        $con = $GLOBALS['con'];
+        $sql = "SELECT * FROM product LIMIT 4";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
+     public function  selectFeedback($productId){
+        $con = $GLOBALS['con'];
+        $sql = "SELECT * FROM feedback WHERE product_id='$productId' GROUP BY customer_id";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
+    public function  getCustomerById($cusId){
+        $con = $GLOBALS['con'];
+        $sql = "SELECT customer_fName, customer_lName FROM customer WHERE customer_id='$cusId'";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
     public function  searchProduct($txt){
         $con = $GLOBALS['con'];
         $sql = "SELECT * FROM product WHERE product_name LIKE '$txt'";
+        $results = $con->query($sql)or die($con->error);
+        return $results;
+    }
+    public function  searchProductByFilter($catId){
+        $con = $GLOBALS['con'];
+        $sql = "SELECT * FROM product WHERE sub_cat_id='$catId'";
         $results = $con->query($sql)or die($con->error);
         return $results;
     }

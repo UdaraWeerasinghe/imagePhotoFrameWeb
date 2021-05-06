@@ -92,6 +92,7 @@ case "proceedToCheckout":
             $subTotal=$_POST["subTotal"];
             $order_id=$_POST["orderId"];
             
+            
             $idResult=$cartObj->getInsertIdPyment();
                 $nor=$idResult->num_rows;
                 if($nor==0){

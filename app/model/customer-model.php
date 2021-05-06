@@ -64,4 +64,17 @@ class Customer{
         $con->query($sql) or die($con->error);
         return "success";
     }
+     public function  addMsg($name,$email,$contact,$subject,$message){
+        $con=$GLOBALS['con'];
+        $sql="INSERT INTO contact(name,email,contact,subject,message,sendNreceive) "
+                . "VALUES('$name','$email','$contact','$subject','$message','1')";
+        $con->query($sql) or die($con->error);
+        return "success";
+    }
+     public function  activate($cusId){
+        $con=$GLOBALS['con'];
+        $sql="UPDATE customer_login SET status='1' WHERE customer_id='$cusId'";
+        $con->query($sql) or die($con->error);
+        
+    }
 }

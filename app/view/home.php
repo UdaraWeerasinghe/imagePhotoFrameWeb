@@ -1,6 +1,10 @@
 <?php 
     include '../model/product-model.php';
     $productObj=new Product(); 
+    $pResult=$productObj->getAllProductPopular();
+    $scatResult=$productObj->getAllSubCategory();
+    $colorResult=$productObj->getAllColor();
+    $materialResult=$productObj->getAllMaterial();
 ?>
 <!DOCTYPE html>
 <html>
@@ -69,10 +73,18 @@
                                     <hr>
                                     <li class="btn btn-warning form-control">
                                         <i class="far fa-sign-out-alt"></i>&nbsp;
-                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black">Logout</a>
+                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black">
+                                            <?php 
+                                            if(isset($_SESSION["customer"])){
+                                                echo 'Logout';
+                                            }else{
+                                                echo 'Login';
+                                            }
+                                            ?>
+                                            
+                                        </a>
                                     </li>
                                 </ul>
-                                
                             </span>
                                 
                                 
@@ -114,7 +126,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-md-2">
-                                                      <a  onclick="load_data(<?php echo $values["psId"]; ?>)">
+                                                      <a  onclick="load_data('<?php echo $values["psId"]; ?>')">
                                                         <span class="far fa-trash-alt remove-btn">
                                                         </span>
                                                     </a>
@@ -155,7 +167,7 @@
                 </div>
             </div>
         </div>
-        <div style="height: 351.1Px; width: 100%; position: absolute; top: 65px; background-image: url(../../images/top-banner3.jpg); background-size: cover">
+        <div style="height: 450px; width: 100%;padding-top: 70px; background-image: url(../../images/top-banner3.jpg); background-size: cover">
             <div class="row container">
                 <div class="col-6" style="text-align: center; padding: 20px;">
                     
@@ -166,8 +178,52 @@
                 <div class="col-6">
                 </div>
             </div>
+          
         </div>
-
+        <div class="container" id="product" style="padding: 50px 0px;">
+            <h3 style="text-align: center; margin: 20px;">Most populer Frames</h3>
+                    <div class="row">
+                    <?php 
+                    $count=0;
+                        While($pRow=$pResult->fetch_assoc()){
+                            $pId= base64_encode($pRow["product_id"]);
+                            ?>
+                        <div class="col-md-3">
+                            <div class="card" style="border-radius: 10px; margin: 10px 2px;padding: 10px;" >
+                                <a href="view-product.php?pId=<?php echo $pId; ?>" style="text-decoration: none">
+                                    <div><img width="100%" src="../../../ImagePhotoFrame/images/design_image/<?php echo $pRow['product_img_1']; ?>"></div>
+                                    <center>
+                                        <h6 style="color: black; text-decoration: none;"><?php echo $pRow['product_name']; ?></h6>
+                                        <?php $p_id=$pRow['product_id'];
+                                        $productPrice=$productObj->getStatingPrice($p_id);
+                                        $srow=$productPrice->fetch_assoc();
+                                        ?>
+                                        <p style="color: grey">Starting at Rs.<?php echo number_format($srow['startingPrice'],2); ?></p>
+                                        <h6 style="color: black">Color : <?php echo $pRow['product_color']; ?> </h6>
+                                    </center>
+                                    
+                                </a>
+                            </div>
+                        </div>
+                        <?php 
+                        $count++;
+                            if($count%4==0){
+                                ?>
+                               </div>  
+                    <div class="row">
+                    <?php
+                            }
+                        ?>
+                       
+                                <?php
+                        }
+                    ?>
+                </div>
+            </div>
+        
+            <?php
+                include './footer.php';
+            ?>
     </body>
     <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>

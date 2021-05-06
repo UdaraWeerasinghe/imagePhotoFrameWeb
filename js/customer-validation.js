@@ -38,7 +38,7 @@
         }
                 
             if(lName==""){
-            $("#lNameTooltip").html("Please enter the first name");
+            $("#lNameTooltip").html("Please enter the last name");
             $("#lName").addClass("is-invalid");
                 return false;
                 }else{
@@ -56,7 +56,7 @@
         }
         
             if(nic==""){
-            $("#nicTooltip").html("Please enter the first name");
+            $("#nicTooltip").html("Please enter the  nic");
             $("#nic").addClass("is-invalid");
                 return false;
                 }else{
@@ -153,6 +153,15 @@
             type: 'post',
             url: '../controller/customer-controller.php?status=addCustomer',
             data: $('#createAccForm').serialize(),
+            beforeSend: function () {
+
+                        Swal.fire({
+                            type: 'info',
+                            title: 'Creating!',
+                            showConfirmButton: false,
+                            imageUrl: "../../images/gif.gif"
+                        });
+                    },
             success: function (result) {
                 console.log(result);
                 if(result=="nic"){
@@ -166,7 +175,7 @@
                     $("#con").focus();
                 }
                 else if(result=="email"){
-                    $("#emailTooltip").html("Conact Number is alredy exist"); 
+                    $("#emailTooltip").html("Email address is alredy exist"); 
                     $("#email").addClass("is-invalid");
                     $("#email").focus();
                 }

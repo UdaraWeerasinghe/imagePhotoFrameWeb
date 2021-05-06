@@ -45,7 +45,29 @@ switch ($status){
                 $result=$customerObj->addCustomer($newid, $fName, $lName, $nic, $tel, $email, $gender, $zip, $Address);
                         $customerObj->addLogin($email, $pass, $newid);
                 
-                echo $result;
+        require '../../includes/phpMailer-header.php';
+
+        $mail->setFrom('imagephotoframs@gmail.com');
+        $mail->addAddress($email);     
+        $mail->addReplyTo('imagephotoframs@gmail.com', 'Information');
+
+
+        $mail->isHTML(FALSE);                                  
+        $mail->Subject = 'Account Activation';
+        $mail->Body    = '<p> Click below link to activate your account</p>'
+                . '<p>http://localhost/imagePhotoFrameWeb/app/controller/customer-controller.php?status=activate&key='.base64_encode($newid).'</p>';
+        $mail->AltBody = '';
+        
+        
+        if ($mail->Send()) { 
+            echo $result; 
+            }
+            else{
+                echo $mail->ErrorInfo;
+            }
+            
+                
+                
             
         } catch (Exception $ex) {
             $msg=$ex->getMessage();
@@ -53,4 +75,20 @@ switch ($status){
         }
         
         break;
+        
+    case "activate":
+        $cusId=base64_decode($_REQUEST["key"]);
+        $customerObj->activate($cusId);
+        header("Location:../view/login.php");
+        break;
+        
+        case "dropMsg":
+            $name=$_POST["name"];
+            $email=$_POST["email"];
+            $cno=$_POST["cno"];
+            $subject=$_POST["subject"];
+            $msg=$_POST["msg"];
+            $result=$customerObj->addMsg($name, $email, $cno, $subject, $msg);
+            echo $result;
+            break;
 }

@@ -79,7 +79,13 @@ $customerId=$_SESSION["customer"]["customer_id"];
                                     <hr>
                                     <li class="btn btn-warning form-control">
                                         <i class="far fa-sign-out-alt"></i>&nbsp;
-                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black">Logout</a>
+                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black"> <?php 
+                                            if(isset($_SESSION["customer"])){
+                                                echo 'Logout';
+                                            }else{
+                                                echo 'Login';
+                                            }
+                                            ?></a>
                                     </li>
                                 </ul>
                                 
@@ -187,7 +193,7 @@ $customerId=$_SESSION["customer"]["customer_id"];
                       <a class="nav-link" href="shipped.php">Shipped</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link active" href="#">Received</a>
+                      <a class="nav-link active" href="received.php">Received</a>
                   </li>
                 </ul>
                 
@@ -195,11 +201,11 @@ $customerId=$_SESSION["customer"]["customer_id"];
                     <thead class="table-info">
                         <tr>
                             <th>Order Id</th>
-                            <th>Date & Time</th>
-                            <th>Number Of Items</th>
+                            <th>Date</th>
                             <th>Sub Total</th>
                             <th>Due Payment</th>
                             <th>Status</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -208,20 +214,117 @@ $customerId=$_SESSION["customer"]["customer_id"];
                         ?>
                         <tr>
                             <td><?php echo $oderRow["order_id"];?></td>
-                            <td><?php echo $oderRow["order_timestamp"];?></td>
-                            <td><?php echo $oderRow["order_id"];?></td>
-                            <td><?php echo $oderRow["order_sub_total"];?></td>
-                            <td><?php echo $oderRow["order_id"];?></td>
-                            <td><?php echo $oderRow["order_status"];?></td>
+                            <td>
+                                <?php
+                                $timestamp = strtotime($oderRow["order_timestamp"]);
+                               echo $date = date('d-m-Y', $timestamp);
+//                               $time = date('h:i:sa', $timestamp);
+                                
+                                ?>
+                            </td>
+                            
+                            <td>
+                                <?php echo "Rs.".number_format($oderRow["order_sub_total"],2);?>
+                            </td>
+                            <td>
+                                <?php 
+                                if($oderRow["order_payment_status"]==0){
+                                    ?>
+                                <span style="color: red"><?php echo "Rs.".number_format($oderRow["order_sub_total"],2);?></span>
+                                <?php
+                                } 
+                                elseif ($oderRow["order_payment_status"]==1) {
+                                ?>
+                                <span style="color: green"><?php echo "Rs.".number_format(0,2);?></span>
+                                
+                                <?php
+                            }
+                                else {
+                                   ?>
+                                <span style="color: orangered"><?php echo "Rs.".number_format($oderRow["order_sub_total"]/2,2);?></span>
+                                <?php 
+                                }
+                                ?>
+                            </td>
+                            <td>
+                               <?php if($oderRow["order_status"]==1){
+                                    ?>
+                                <span class="label label-warning">Pending</span>
+                                <?php
+                                }
+                                elseif ($oderRow["order_status"]==2) {
+                                ?>
+                                <span class="label label-warning">Processing</span>
+                                <?php
+                            }elseif ($oderRow["order_status"]==3) {
+                                ?>
+                                <span class="label label-warning">Wating for payment</span>
+                                <?php
+                            }elseif ($oderRow["order_status"]==4) {
+                                ?>
+                                <span class="label label-warning">Ready to delivery</span>
+                                <?php
+                            }elseif ($oderRow["order_status"]==5) {
+                                ?>
+                                <span class="label label-warning">On delivery</span>
+                                <?php
+                            }elseif ($oderRow["order_status"]==6) {
+                                ?>
+                                <span class="label label-warning">Completed</span>
+                                <?php
+                            }
+                                ?>
+                            </td>
+                            <td>
+                                <?php if($oderRow["order_payment_status"]==1){
+                                    ?>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#view" onclick="viewOrder('<?php echo $oderRow["order_id"];?>')">View</button>
+                                <?php
+                                }
+                                elseif ($oderRow["order_payment_status"]==2) {
+                                ?>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#view" onclick="viewOrder('<?php echo $oderRow["order_id"];?>')">View</button>
+                                <a href='payment.php?orderId=<?php echo base64_encode($oderRow["order_id"])?>' type="button" class="btn btn-sm btn-warning">Pay Now</a>
+                                <?php
+                            }
+                                else {
+                                    ?>
+                                <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#view" onclick="viewOrder('<?php echo $oderRow["order_id"];?>')">View</button>
+                                <a href='payment.php?orderId=<?php echo base64_encode($oderRow["order_id"])?>' type="button" class="btn btn-sm btn-warning">Pay Now</a>
+                                <?php
+                                }
+                                ?>
+                            </td>
                         </tr>
                 <?php
                     }
                 ?>
                     </tbody>
-                </table>  
+                </table> 
             </div>
            
         </div>
+        <!--view//////modal/////////////////-->
+  <div class="modal fade" id="view">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Order Details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" id="viewOrderBody">
+            
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+        <!--view//////modal/////////////////-->
     </body>
     
     <script type="text/javascript" src="../../js/popper-1.16.js"></script>
@@ -229,6 +332,13 @@ $customerId=$_SESSION["customer"]["customer_id"];
     <script type="text/javascript" src="../../js/product-validation.js"></script>
  
     <script>
+        function viewOrder(orderId){
+            var url="../controller/product-controller.php?status=viewOrderModale&orderId="+orderId;
+            $.post(url, {orderId:orderId}, function(data) {
+                $("#viewOrderBody").html(data).show();
+    
+});
+        }
         
         $(function(){
     $("#order_tbl").dataTable();

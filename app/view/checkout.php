@@ -1,6 +1,7 @@
 <?php 
     session_start();
-    include '../model/product-model.php';
+    if(isset($_SESSION['customer'])){
+         include '../model/product-model.php';
     $productObj=new Product(); 
 ?>
 <!DOCTYPE html>
@@ -12,10 +13,6 @@
         <link type="text/css" rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="../../fontawesome-pro-5.13.0-web/css/all.css">
         <link type="text/css" rel="stylesheet" href="../../css/style.css">
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoAxLMWMyY_go2h2BgnHnl5H2sZEeAv_E&callback=initMap&libraries=&v=weekly"
-      defer>
-    </script>
     </head>
     <body style="margin: 0px; padding: 0px;background-color: #f5f6f8">
         <div class="container-fluid" style="position: fixed; z-index: 1; background-color: white">
@@ -176,33 +173,7 @@
                                         <input type="text" class="form-control" value="<?php echo $_SESSION['customer']['customer_address']; ?>" readonly>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4 mb-4">
-                                        <lable>Location</lable>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div id="map" style="height: 300px;">
-                                            <?php
-                                            $lat=$_SESSION['customer']['customer_longitude'];
-                                            $long=$_SESSION['customer']['customer_latitude'];
-                                            ?>
-                                            <script>
-                                                let map;
-                                                function initMap() {
-                                                  const location = { lat: <?php echo $lat ?>, lng: <?php echo $long ?> };
-                                                  const map = new google.maps.Map(document.getElementById("map"), {
-                                                    center: location,
-                                                    zoom: 15
-                                                  });
-                                                  const marker = new google.maps.Marker({
-                                                    position: location,
-                                                    map: map
-                                                  });
-                                                }
-                                            </script>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                                 <div class="row">
                                     <div class="col-12" style="text-align: end; margin-top: 20px;">
                                         <a href="updateCheckout.php" type="button" class="btn btn-warning">Change Details</a>
@@ -257,6 +228,11 @@
             </div>
             
         </div>
+        <?php
+    }else{
+        header("location: login.php");
+    }
+   ?>
 
     </body>
     <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>

@@ -22,7 +22,19 @@
         });
   
         //add to shopping cart
-       
+  
+ //filter product
+    $("#filter").click(function () {
+            var url = "../controller/product-controller.php?status=filter";
+            var catId = $("#catId").val();
+            var matId = $("#matId").val();
+            var color = $("#color").val();
+            alert(catId);
+            $.post(url, {catId:catId,matId:matId,color:color}, function (data){
+                $("#product").html(data).show();
+            });
+        });
+    //filter product     
        
   
  //price by size
@@ -58,6 +70,66 @@
                 $("#product").html(data).show();
             });
         });
+        
+    $("#payment").submit( function (){
+        var name=$("#name").val();
+        var number=$("#number").val();
+        var cvc=$("#cvc").val();
+        var date=$("#date").val();
+        
+        var name_ptn = /^[a-zA-Z]{1,}$/;
+        
+          
+            if(name==""){
+            $("#nameTooltip").html("Please enter the name");
+            $("#name").addClass("is-invalid");
+            console.log("n");
+                return false;
+                }else{
+                    $("#name").removeClass("is-invalid");
+                    $("#name").addClass("is-valid");
+                }
+            if (!name.match(name_ptn)){
+            $("#nameTooltip").html("Please enter valid name");
+            $("#name").addClass("is-invalid");
+            return false;
+        } else{
+            $("#name").removeClass("is-invalid");
+            $("#name").addClass("is-valid");
+        }
+        
+        if(number==""){
+            $("#numberTooltip").html("Please enter the creadit card number");
+            $("#number").addClass("is-invalid");
+            console.log("n");
+                return false;
+                }else{
+                    $("#number").removeClass("is-invalid");
+                    $("#number").addClass("is-valid");
+                }
+                
+                if(cvc==""){
+            $("#cvcTooltip").html("Please enter the cvc number");
+            $("#cvc").addClass("is-invalid");
+            console.log("n");
+                return false;
+                }else{
+                    $("#cvc").removeClass("is-invalid");
+                    $("#cvc").addClass("is-valid");
+                }
+           
+           if(date==""){
+            $("#dateTooltip").html("Please enter theexpire date");
+            $("#date").addClass("is-invalid");
+            console.log("n");
+                return false;
+                }else{
+                    $("#date").removeClass("is-invalid");
+                    $("#date").addClass("is-valid");
+                }
+           
+           
+    });
     
     
      $('#shopping-cart').mouseover(function() {

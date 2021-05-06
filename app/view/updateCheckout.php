@@ -12,11 +12,6 @@
         <link type="text/css" rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
         <link type="text/css" rel="stylesheet" href="../../fontawesome-pro-5.13.0-web/css/all.css">
         <link type="text/css" rel="stylesheet" href="../../css/style.css">
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-        <script
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoAxLMWMyY_go2h2BgnHnl5H2sZEeAv_E"
-          defer>
-        </script>
     </head>
     <body style="margin: 0px; padding: 0px;background-color: #f5f6f8">
         <div class="container-fluid" style="position: fixed; z-index: 1; background-color: white">
@@ -192,36 +187,7 @@
                                         <input type="text" class="form-control">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4 mb-4">
-                                        <lable>Location</lable>
-                                    </div>
-                                    <div class="col-md-8">
-                                            <?php
-                                            $lat=$_SESSION['customer']['customer_longitude'];
-                                            $long=$_SESSION['customer']['customer_latitude'];
-                                            ?>
-                                            <script type="text/javascript">
-                                                window.onload = function () {
-                                                    var mapOptions = {
-                                                        center: new google.maps.LatLng(<?php echo $lat ?>, <?php echo $long ?>),
-                                                        zoom: 15,
-                                                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                                                    };
-                                                    var infoWindow = new google.maps.InfoWindow();
-                                                    var latlngbounds = new google.maps.LatLngBounds();
-                                                    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-                                                    google.maps.event.addListener(map, 'click', function (e) {
-                                                        alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
-                                                    });
-                                                 
-                                                    
-                                                };
-                                            </script>
-                                            <div id="dvMap" style="height: 300px">
-                                            </div>
-                                    </div>
-                                </div>
+                               
                                 <div class="row">
                                     <div class="col-12" style="text-align: end; margin-top: 20px;">
                                         <input type="submit" class="btn btn-success" value="Save">
@@ -266,7 +232,7 @@
                                 <label>Rs.<?php  echo number_format($total-$discount,2);?></label>
                             </div>
                         </div>
-                        <a href="../view/checkout.php" class="btn btn-primary">Place Order</a>
+                        <a href="../view/checkout.php" class="btn btn-warning">Place Order</a>
                     </div>
                 </div>
             </div>
@@ -277,5 +243,12 @@
     <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="../../js/product-validation.js"></script>
+    <script>
+        
+        $('#createAccForm').on('submit', function (e) {
+            var name=$("#name").val();
+            
+        });
+    </script>
    
 </html>

@@ -1,16 +1,17 @@
 <?php
     include '../model/product-model.php';
     $productObj=new Product();
-    $productResult=$productObj->getAllProduct();
+    $productResult=$productObj->getAllProduct(); //load all product
     $scatResult=$productObj->getAllSubCategory();
     $colorResult=$productObj->getAllColor();
-    $materialResult=$productObj->getAllMaterial();
+    $materialResult=$productObj->getAllMaterial();  ///get product materials
     $pId= base64_decode($_REQUEST['pId']);
     $viewProductResult=$productObj->getProduct($pId);
     $productPrice=$productObj->getStatingPrice($pId);
     $pRow=$viewProductResult->fetch_assoc();
     $subCatId = $pRow['sub_cat_id'];
     $sizeResult=$productObj->getSizeByType($subCatId);
+    $feedBackResul=$productObj->selectFeedback($pId);
 
 ?>
 <!DOCTYPE html>
@@ -77,7 +78,13 @@
                                     <hr>
                                     <li class="btn btn-warning form-control">
                                         <i class="far fa-sign-out-alt"></i>&nbsp;
-                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black">Logout</a>
+                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black"> <?php 
+                                            if(isset($_SESSION["customer"])){
+                                                echo 'Logout';
+                                            }else{
+                                                echo 'Login';
+                                            }
+                                            ?></a>
                                     </li>
                                 </ul>
                                 
@@ -247,6 +254,50 @@
                 </div>
                 
             </div>
+            <h3 style="margin: 20px; text-align: center">Customer Feedback</h3>
+            <?php
+            if($feedBackResul->num_rows>0){
+                while($fRow=$feedBackResul->fetch_assoc()){
+                    $cusResult=$productObj->getCustomerById($fRow["customer_id"]);
+                    $cusRow=$cusResult->fetch_assoc();
+                ?>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <lable><b><?php echo $cusRow["customer_fName"]." ".$cusRow["customer_lName"]; ?></b></lable><br>
+                    <label
+                        <?php
+                        for ($x = 1; $x <= 5; $x++) {
+                            if($fRow["rating"]>=$x){
+                               ?>
+                        <i class="fas fa-star" style="color: orange"></i>
+                        <?php 
+                            }else{
+                                ?>
+                        <i class="fal fa-star" style="color: orange"></i>
+                        <?php
+                            }
+                            
+                        }
+                        ?>
+                    </label><br>
+                    <label><?php echo $fRow["feedback_msg"]; ?></label>
+                </div>
+                <div class="col-3"></div>
+            </div>
+            <?php
+                }
+            }else{
+                ?>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">Does not have any feedback</div>
+                <div class="col-3"></div>
+            </div>
+            <?php 
+            }
+            ?>
+            
         </div>
 
     </body>

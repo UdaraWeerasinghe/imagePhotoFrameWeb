@@ -81,7 +81,13 @@ $customerId=$_SESSION["customer"]["customer_id"];
                                     <hr>
                                     <li class="btn btn-warning form-control">
                                         <i class="far fa-sign-out-alt"></i>&nbsp;
-                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black">Logout</a>
+                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black"> <?php 
+                                            if(isset($_SESSION["customer"])){
+                                                echo 'Logout';
+                                            }else{
+                                                echo 'Login';
+                                            }
+                                            ?></a>
                                     </li>
                                 </ul>
                                 
@@ -181,13 +187,13 @@ $customerId=$_SESSION["customer"]["customer_id"];
                       <a class="nav-link active" href="processing.php">Processing</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">Completed</a>
+                      <a class="nav-link" href="completed.php">Completed</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">Shipped</a>
+                      <a class="nav-link" href="shipped.php">Shipped</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">Received</a>
+                      <a class="nav-link" href="received.php">Received</a>
                   </li>
                 </ul>
                 
@@ -241,7 +247,7 @@ $customerId=$_SESSION["customer"]["customer_id"];
                                 ?>
                             </td>
                             <td>
-                                <?php if($oderRow["order_status"]==1){
+                               <?php if($oderRow["order_status"]==1){
                                     ?>
                                 <span class="label label-warning">Pending</span>
                                 <?php
@@ -249,6 +255,22 @@ $customerId=$_SESSION["customer"]["customer_id"];
                                 elseif ($oderRow["order_status"]==2) {
                                 ?>
                                 <span class="label label-warning">Processing</span>
+                                <?php
+                            }elseif ($oderRow["order_status"]==3) {
+                                ?>
+                                <span class="label label-warning">Wating for payment</span>
+                                <?php
+                            }elseif ($oderRow["order_status"]==4) {
+                                ?>
+                                <span class="label label-warning">Ready to delivery</span>
+                                <?php
+                            }elseif ($oderRow["order_status"]==5) {
+                                ?>
+                                <span class="label label-warning">On delivery</span>
+                                <?php
+                            }elseif ($oderRow["order_status"]==6) {
+                                ?>
+                                <span class="label label-warning">Completed</span>
                                 <?php
                             }
                                 ?>

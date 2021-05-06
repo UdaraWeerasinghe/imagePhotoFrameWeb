@@ -66,7 +66,13 @@
                                     <hr>
                                     <li class="btn btn-warning form-control">
                                         <i class="far fa-sign-out-alt"></i>&nbsp;
-                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black">Logout</a>
+                                        <a href="../controller/login-controller.php?status=logout" style="text-decoration: none; color: black"> <?php 
+                                            if(isset($_SESSION["customer"])){
+                                                echo 'Logout';
+                                            }else{
+                                                echo 'Login';
+                                            }
+                                            ?></a>
                                     </li>
                                 </ul>
                                 
@@ -97,7 +103,7 @@
                                 $sizeRow=$sResult->fetch_assoc();
                                 
                                 ?>
-                                <div style="padding: 0px;">
+                               <div style="padding: 0px;">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <img width="60px" height="60px" src="../../../ImagePhotoFrame/images/design_image/<?php echo $iRow["product_img_1"];?>">

@@ -6,7 +6,7 @@ class login{
     public function  loginValidation($uname,$upass){
         
         $con = $GLOBALS['con'];
-        $sql = "SELECT * FROM customer c , customer_login l WHERE c.customer_id=l.customer_id AND l.customer_user_name='$uname' AND l.customer_password='$upass'";
+        $sql = "SELECT * FROM customer c , customer_login l WHERE c.customer_id=l.customer_id AND l.customer_user_name='$uname' AND l.customer_password='$upass' AND l.status='1'";
         $results = $con->query($sql)or die($con->error);
         return $results;
     }

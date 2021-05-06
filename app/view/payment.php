@@ -34,7 +34,7 @@
         <div class="container" style="padding-top: 90px;">
             <div style="background-color: white; padding: 10px;" class="card">
                 <div>
-                    <form method="post" action="../controller/cart-controller.php?status=payment">
+                    <form id="payment" method="post" action="../controller/cart-controller.php?status=payment">
                         <h3>Payment Details</h3>
                         <hr>
                         <?php
@@ -100,23 +100,29 @@
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
+                                    <div>
                                     <label style="font-weight: bold; margin-top: 10px;">Name on card </label><br>
-                                    <input type="text" class="form-control">  
-
+                                    <input type="text" name="name" id="name" class="form-control">  
+                                    <div class="invalid-tooltip" id="nameTooltip" style="position: inherit"></div>
+                                    </div>
+                                    <div>
                                     <label style="font-weight: bold; margin-top: 10px;">Card Number </label><br>
-                                    <input type="text" class="form-control"> 
-
+                                    <input type="text" id="number" class="form-control"> 
+                                    <div class="invalid-tooltip" id="numberTooltip" style="position: inherit"></div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-3">
                                             <div style="padding: 0px 10px 0px 0px">
                                                 <label style="font-weight: bold; margin-top: 10px;">CVC</label><br>
-                                                <input type="text" class="form-control">
+                                                <input type="text" name="cvc" id="cvc" class="form-control">
+                                                <div class="invalid-tooltip" id="cvcTooltip" style="position: inherit"></div>
                                             </div>
                                         </div>
                                         <div class="col-5">
                                             <div style="padding: 0px 10px 0px 0px">
                                                 <label style="font-weight: bold; margin-top: 10px;">Expiration </label><br>
-                                                <input type="date" class="form-control">
+                                                <input type="date" name="date" id="date" class="form-control">
+                                                <div class="invalid-tooltip" id="dateTooltip" style="position: inherit"></div>
                                             </div>
                                         </div>
                                         <div class="col-4"></div>
